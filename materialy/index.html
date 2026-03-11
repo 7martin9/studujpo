@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materiály | StudyHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+    <div class="nav-container">
+        <nav class="navbar-floating">
+            <a href="../index.html" class="logo-group">
+                <img src="../img/ossp_logo.png" alt="Logo" class="logo-img">
+                <span class="logo-text">STUDY<span>HUB</span></span>
+            </a>
+            <input type="checkbox" id="nav-check">
+            <label for="nav-check" class="nav-btn">
+                <i class="fas fa-bars"></i>
+            </label>
+            <ul class="nav-links">
+                    <li><a href="/">Domů</a></li>
+                    <li><a href="/materialy" class="active">Materiály</a></li>
+                    <li><a href="/maturita">Maturita</a></li>
+                    <li><a href="/praxe">Praxe</a></li>
+                    <li><a href="/zkouska">Zkouška</a></li>
+                    <li><a href="/sporty">Sporty</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <header class="section-hero">
+        <div class="container hero-content">
+            <h1 style="margin-top: 40px;">Studijní <span class="accent-glow">materiály</span></h1>
+            <p style="color: rgba(255,255,255,0.8);">Strukturovaný přehled odborných znalostí.</p>
+        </div>
+    </header>
+
+    <section class="materials-list-section">
+        <div class="container">
+            
+            <div class="subject-category">
+                <details>
+                    <summary>
+                        <div class="summary-content">
+                            <i class="fa-solid fa-mask-ventilator"></i>
+                            <span>Chemická služba</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down arrow"></i>
+                    </summary>
+                    <div class="sub-category">
+                        <h4>Dýchací přístroje</h4>
+                        <ul class="file-list">
+                            <li>
+                                <a href="pdf/drager-psa.pdf" target="_blank">
+                                    <i class="fa-regular fa-file-pdf"></i>
+                                    <span>Konstrukce a údržba - Dräger PSS 4000</span>
+                                    <i class="fa-solid fa-download download-icon"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="pdf/kontrola-tlaku.pdf" target="_blank">
+                                    <i class="fa-regular fa-file-pdf"></i>
+                                    <span>Metodika kontroly tlaku</span>
+                                    <i class="fa-solid fa-download download-icon"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="subject-category">
+                <details>
+                    <summary>
+                        <div class="summary-content">
+                            <i class="fa-solid fa-walkie-talkie"></i>
+                            <span>Spojová služba</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down arrow"></i>
+                    </summary>
+                    <div class="sub-category">
+                        <h4>Radiostanice</h4>
+                        <ul class="file-list">
+                            <li>
+                                <a href="#">
+                                    <i class="fa-regular fa-file-pdf"></i>
+                                    <span>Obsluha terminálu Matra</span>
+                                    <i class="fa-solid fa-download download-icon"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="pro-footer">
+        <div class="container footer-content">
+            <div class="footer-top">
+                <div class="footer-logo">STUDY<span>HUB</span></div>
+                <div class="footer-socials">
+                    <i class="fa-brands fa-instagram"></i>
+                    <i class="fa-brands fa-facebook-f"></i>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 StudyHub | OSŠP Kolín</p>
+                <p>Designed with 🔥</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
