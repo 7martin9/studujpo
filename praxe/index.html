@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>if(localStorage.getItem('theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}</script>
     <title>Odborná praxe | StudyHub</title>
     <link rel="icon" type="image/png" href="/img/ossp_logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -17,15 +18,38 @@
                 <img src="../img/ossp_logo.png" alt="Logo" class="logo-img">
                 <span class="logo-text">STUDY<span>HUB</span></span>
             </a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Přepnout tmavý/světlý režim">
+                <i class="fa-solid fa-moon icon-moon"></i>
+                <i class="fa-solid fa-sun icon-sun"></i>
+            </button>
             <input type="checkbox" id="nav-check">
             <label for="nav-check" class="nav-btn"><i class="fas fa-bars"></i></label>
             <ul class="nav-links">
-                    <li><a href="/">Domů</a></li>
-                    <li><a href="/materialy">Materiály</a></li>
-                    <li><a href="/maturita">Maturita</a></li>
-                    <li><a href="/praxe" class="active">Praxe</a></li>
-                    <li><a href="/zkouska">Zkouška</a></li>
-                    <li><a href="/sporty">Sporty</a></li>
+                <li><a href="/">Domů</a></li>
+                <li class="nav-dropdown">
+                    <button aria-haspopup="true">
+                        Studium
+                        <span class="nav-dropdown-arrow">▼</span>
+                    </button>
+                    <ul class="nav-dropdown-menu">
+                        <li><a href="/materialy">Materiály</a></li>
+                        <li><a href="/maturita">Maturita</a></li>
+                        <li><a href="/zkouska">Závěrečná zkouška</a></li>
+                    </ul>
+                </li>
+                <li class="nav-dropdown">
+                    <button aria-haspopup="true">
+                        Praktická příprava
+                        <span class="nav-dropdown-arrow">▼</span>
+                    </button>
+                    <ul class="nav-dropdown-menu">
+                        <li><a href="/praxe">Odborná praxe</a></li>
+                        <li><a href="/sporty">Sporty</a></li>
+                        <li><a href="/nastroje">Interaktivní nástroje</a></li>
+                        <li><a href="/tahakydobapsy">Taháky do kapsy</a></li>
+                    </ul>
+                </li>
+                <li><a href="/faq">FAQ</a></li>
             </ul>
         </nav>
     </div>
@@ -124,5 +148,6 @@
         </div>
     </footer>
 
+<script src="../script.js"></script>
 </body>
 </html>

@@ -17,11 +17,11 @@ body { font-family: 'Montserrat', sans-serif; background: #fff; color: #333; ove
 .navbar-floating { 
     background: rgba(255, 255, 255, 0.96); 
     backdrop-filter: blur(10px);
-    padding: 12px 32px; 
+    padding: 14px 36px; 
     border-radius: 18px; 
     display: flex; 
     align-items: center; 
-    gap: 40px;
+    gap: 35px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
 }
 
@@ -30,9 +30,120 @@ body { font-family: 'Montserrat', sans-serif; background: #fff; color: #333; ove
 .logo-text { font-weight: 800; font-size: 1.1rem; color: var(--dark); text-transform: uppercase; letter-spacing: -0.5px; }
 .logo-text span { color: var(--primary); font-weight: 900; }
 
-.nav-links { display: flex; list-style: none; gap: 10px; }
-.nav-links a { text-decoration: none; color: var(--dark); font-weight: 700; font-size: 0.8rem; padding: 10px 16px; border-radius: 10px; transition: 0.3s; }
+.nav-links { display: flex; list-style: none; gap: 6px; align-items: center; }
+.nav-links li { display: flex; align-items: center; }
+.nav-links a, .nav-links li > a { text-decoration: none; color: var(--dark); font-weight: 700; font-size: 1rem; padding: 11px 20px; border-radius: 10px; transition: 0.3s; display: flex; align-items: center; height: 42px; }
 .nav-links a.active, .nav-links a:hover { background: var(--primary); color: white; }
+
+/* Dropdown menu */
+.nav-dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.nav-dropdown > button {
+    background: none;
+    border: none;
+    color: var(--dark);
+    font-weight: 700;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    padding: 11px 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: 0.3s;
+    height: 42px;
+    line-height: 1;
+    margin: 0;
+}
+
+.nav-dropdown > button:hover,
+.nav-dropdown > button.active {
+    background: var(--primary);
+    color: white;
+}
+
+.nav-dropdown-arrow {
+    font-size: 0.65rem;
+    transition: transform 0.3s;
+    display: inline-block;
+}
+
+.nav-dropdown > button.active .nav-dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.nav-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border-radius: 12px;
+    min-width: 200px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    list-style: none;
+    margin-top: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: 0.3s;
+    z-index: 100;
+}
+
+.nav-dropdown > button.active ~ .nav-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.nav-dropdown-menu li {
+    border-bottom: 1px solid #f1f5f9;
+}
+.nav-dropdown-menu li:first-child a {
+    border-radius: 8px 8px 0 0 !important;
+}
+.nav-dropdown-menu li:last-child {
+    border-bottom: none;
+}
+.nav-dropdown-menu li:last-child a {
+    border-radius: 0 0 8px 8px !important;
+}
+.nav-dropdown-menu li:only-child a {
+    border-radius: 8px !important;
+}
+
+.nav-dropdown-menu a {
+    display: block;
+    padding: 14px 22px !important;
+    color: var(--dark) !important;
+    text-decoration: none;
+    font-size: 0.9rem;
+    background: transparent !important;
+    transition: 0.2s;
+    margin: 0 !important;
+}
+.nav-dropdown-menu a:hover {
+    background: #f8fafc !important;
+    color: var(--primary) !important;
+}
+
+/* Dark mode dropdowns */
+[data-theme="dark"] .nav-dropdown > button { color: #e2e8f0; }
+[data-theme="dark"] .nav-dropdown > button:hover,
+[data-theme="dark"] .nav-dropdown > button.active { background: var(--primary); color: white; }
+[data-theme="dark"] .nav-dropdown-menu { background: #1e293b; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+[data-theme="dark"] .nav-dropdown-menu li { border-bottom-color: #334155; }
+[data-theme="dark"] .nav-dropdown-menu li:first-child a { border-radius: 8px 8px 0 0 !important; }
+[data-theme="dark"] .nav-dropdown-menu li:last-child a { border-radius: 0 0 8px 8px !important; }
+[data-theme="dark"] .nav-dropdown-menu li:only-child a { border-radius: 8px !important; }
+[data-theme="dark"] .nav-dropdown-menu a { color: #e2e8f0 !important; }
+[data-theme="dark"] .nav-dropdown-menu a:hover { background: #263347 !important; color: var(--primary) !important; }
 
 /* HERO S ROZOSTŘENÝM POZADÍM */
 .hero-full { 
@@ -127,6 +238,12 @@ body { font-family: 'Montserrat', sans-serif; background: #fff; color: #333; ove
 /* Schováme checkbox a ikonu na počítači */
 #nav-check { display: none; }
 .nav-btn { display: none; }
+
+/* Skrýt text na mobilu */
+.hide-mobile { display: inline; }
+@media (max-width: 768px) {
+    .hide-mobile { display: none; }
+}
 
 @media (max-width: 850px) {
     /* Ukážeme ikonu tří čárek */
@@ -290,6 +407,71 @@ body { font-family: 'Montserrat', sans-serif; background: #fff; color: #333; ove
     border-radius: 20px;
     margin-top: 10px;
 }
+/* --- VYHLEDÁVÁNÍ V MATERIÁLECH --- */
+.search-wrapper { margin-bottom: 35px; }
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 14px 20px;
+    transition: border-color 0.2s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.search-box:focus-within { border-color: var(--primary); }
+
+.search-icon { color: #94a3b8; font-size: 1rem; flex-shrink: 0; }
+
+.search-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--dark);
+}
+.search-box input::placeholder { color: #94a3b8; font-weight: 500; }
+
+.search-clear {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #94a3b8;
+    font-size: 1rem;
+    padding: 0;
+    display: none;
+    transition: color 0.2s;
+}
+.search-clear:hover { color: var(--primary); }
+.search-clear.visible { display: block; }
+
+.search-no-results {
+    text-align: center;
+    color: #94a3b8;
+    font-weight: 700;
+    margin-top: 20px;
+    font-size: 1rem;
+}
+
+/* Zvýraznit hledaný text */
+mark.search-highlight {
+    background: rgba(230, 57, 70, 0.18);
+    color: inherit;
+    border-radius: 3px;
+    padding: 0 2px;
+}
+
+/* Dark mode */
+[data-theme="dark"] .search-box { background: #1e293b; border-color: #334155; }
+[data-theme="dark"] .search-box input { color: #e2e8f0; }
+[data-theme="dark"] .search-box:focus-within { border-color: var(--primary); }
+
+/* --- MATERIÁLY --- */
 /* --- STYLY PRO SEZNAM MATERIÁLŮ (AKORDEON) --- */
 .materials-list-section { padding: 60px 0; background: var(--bg-gray); min-height: 60vh; }
 
@@ -804,7 +986,161 @@ details[open] .arrow { transform: rotate(180deg); color: var(--primary); opacity
 
 /* ...existing code... */
 
-/* ...existing code... */
+/* ==========================================
+   TMAVÝ REŽIM
+   ========================================== */
+
+/* Tlačítko přepínání */
+.theme-toggle {
+    background: none;
+    border: 2px solid #e2e8f0;
+    border-radius: 50px;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--dark);
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+.theme-toggle:hover { border-color: var(--primary); color: var(--primary); }
+
+/* Ikony — zobrazujeme jen tu správnou */
+.theme-toggle .icon-moon { display: none; }
+.theme-toggle .icon-sun  { display: inline; }
+
+[data-theme="dark"] .theme-toggle .icon-moon { display: inline; }
+[data-theme="dark"] .theme-toggle .icon-sun  { display: none; }
+
+/* Dark mode – základní */
+[data-theme="dark"] body { background: #0f172a; color: #e2e8f0; }
+
+/* Navbar */
+[data-theme="dark"] .navbar-floating {
+    background: rgba(15, 23, 42, 0.97);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+[data-theme="dark"] .logo-text { color: #e2e8f0; }
+[data-theme="dark"] .nav-links a { color: #e2e8f0; }
+[data-theme="dark"] .theme-toggle { border-color: #334155; color: #e2e8f0; }
+[data-theme="dark"] .theme-toggle:hover { border-color: var(--primary); color: var(--primary); }
+
+/* Logo – bílé pozadí za logem v tmavém režimu, aby černý text zůstal čitelný */
+[data-theme="dark"] .logo-img {
+    background: white;
+    border-radius: 6px;
+    padding: 2px 5px;
+}
+
+/* Mobilní menu */
+[data-theme="dark"] .nav-btn { color: #e2e8f0; }
+@media (max-width: 850px) {
+    [data-theme="dark"] .nav-links { background: #1e293b; }
+}
+
+/* O projektu */
+[data-theme="dark"] .about-section { background: #1e293b; }
+[data-theme="dark"] .about-card { background: #0f172a; box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
+[data-theme="dark"] .about-card h2 { color: #e2e8f0; }
+[data-theme="dark"] .about-card p { color: #94a3b8; }
+
+/* Sekce bubliny */
+[data-theme="dark"] .bubbles-section { background: #0f172a; }
+
+/* Zápatí je vždy tmavé – bez změny */
+
+/* Práce / Materiály – hero je vždy tmavý – bez změny */
+
+/* Sekce s obsahem (šedé pozadí) */
+[data-theme="dark"] .materials-grid-section,
+[data-theme="dark"] .materials-list-section,
+[data-theme="dark"] .exam-info-section,
+[data-theme="dark"] .sports-section,
+[data-theme="dark"] .praxe-content,
+[data-theme="dark"] .praxe-section { background: #0f172a; }
+
+/* Karty a bílé panely */
+[data-theme="dark"] .subject-category,
+[data-theme="dark"] .about-card,
+[data-theme="dark"] .info-card,
+[data-theme="dark"] .wip-content,
+[data-theme="dark"] .praxe-card,
+[data-theme="dark"] .sport-detail-card,
+[data-theme="dark"] .small-card:not(.dark),
+[data-theme="dark"] .step-card { background: #1e293b; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+
+[data-theme="dark"] summary { color: #e2e8f0; }
+[data-theme="dark"] summary:hover { background: #263347; }
+[data-theme="dark"] .file-list a { background: #263347; color: #e2e8f0; }
+[data-theme="dark"] .file-list a:hover { background: #334155; }
+[data-theme="dark"] .file-list a i:first-child { color: #94a3b8; }
+
+/* WIP karta */
+[data-theme="dark"] .work-in-progress { background: #0f172a; }
+[data-theme="dark"] .wip-content h1 { color: #e2e8f0; }
+[data-theme="dark"] .wip-content p { color: #94a3b8; }
+[data-theme="dark"] .status-badge { background: #334155; color: #f87171; }
+[data-theme="dark"] .back-btn { background: #e2e8f0; color: #0f172a; }
+
+/* Akordeon – obsah uvnitř otevřené sekce */
+[data-theme="dark"] .sub-category { background: #1e293b; }
+[data-theme="dark"] .sub-category h4 { border-left-color: #334155; }
+
+/* Zkouška */
+[data-theme="dark"] .timeline-container h2 { color: #e2e8f0; }
+[data-theme="dark"] .month { background: #1e293b; }
+[data-theme="dark"] .exam-note { background: #1e293b; color: #94a3b8; }
+[data-theme="dark"] .info-card h3 { color: #e2e8f0; }
+[data-theme="dark"] .info-card ul li { color: #94a3b8; }
+[data-theme="dark"] .info-card p { color: #94a3b8; }
+
+/* Download sekce */
+[data-theme="dark"] .download-resources { background: #0f172a; }
+[data-theme="dark"] .section-title h2 { color: #e2e8f0; }
+[data-theme="dark"] .resource-group { background: #1e293b; border-color: #334155; }
+[data-theme="dark"] .group-header { color: #e2e8f0; }
+[data-theme="dark"] .group-header i { background: #263347; }
+[data-theme="dark"] .download-list a { background: #263347; border-color: transparent; }
+[data-theme="dark"] .download-list a:hover { border-color: var(--primary); background: #263347; }
+[data-theme="dark"] .file-name { color: #e2e8f0; }
+
+/* Sporty */
+[data-theme="dark"] .sport-detail-card h2 { color: #e2e8f0; }
+[data-theme="dark"] .sport-info-box { background: #263347; }
+[data-theme="dark"] .training-item { color: #94a3b8; }
+
+/* Praxe */
+[data-theme="dark"] .praxe-card h2 { color: #e2e8f0; }
+[data-theme="dark"] .praxe-card p { color: #94a3b8; }
+[data-theme="dark"] .p-step { color: #94a3b8; border-bottom-color: #334155; }
+[data-theme="dark"] .p-step strong { color: #e2e8f0; }
+[data-theme="dark"] .info-box-light { background: #263347; }
+[data-theme="dark"] .info-box-light ul { color: #94a3b8; }
+[data-theme="dark"] .step-text h4 { color: #e2e8f0; }
+[data-theme="dark"] .step-text p { color: #94a3b8; }
+
+/* Modální okno */
+[data-theme="dark"] .modal-content { background: #1e293b; }
+[data-theme="dark"] .modal-content h2 { color: #e2e8f0; }
+[data-theme="dark"] .modal-content p { color: #94a3b8; }
+[data-theme="dark"] .disclaimer { background: #263347; color: #94a3b8; }
+
+/* Přepínání plynule */
+body, .navbar-floating, .about-card, .info-card, .praxe-card,
+.sport-detail-card, .subject-category, .wip-content, .download-resources,
+.resource-group, .download-list a, .modal-content, .step-card, .small-card,
+.about-section, .bubbles-section, .exam-info-section, .sports-section,
+.materials-grid-section, .materials-list-section {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ==========================================
+   KONEC TMAVÉHO REŽIMU
+   ========================================== */
+
 @media (max-width: 768px) {
   .timeline-container .timeline {
     display: flex;

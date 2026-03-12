@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>if(localStorage.getItem('theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}</script>
+    <title>404 – Stránka nenalezena | StudyHub</title>
+    <link rel="icon" type="image/png" href="/img/ossp_logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-404 {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-gray);
+            padding: 120px 20px 60px;
+            text-align: center;
+        }
+
+        .error-card {
+            max-width: 620px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Hasič ilustrace */
+        .firefighter-scene {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 40px;
+        }
+
+        .firefighter-body {
+            font-size: 7rem;
+            line-height: 1;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));
+            animation: shrug 3s ease-in-out infinite;
+            display: block;
+        }
+
+        .question-marks {
+            position: absolute;
+            top: -10px;
+            right: -30px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .question-marks span {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--primary);
+            animation: fadeQ 2s ease-in-out infinite;
+            display: block;
+        }
+        .question-marks span:nth-child(2) { animation-delay: 0.3s; font-size: 1.2rem; opacity: 0.7; }
+        .question-marks span:nth-child(3) { animation-delay: 0.6s; font-size: 0.9rem; opacity: 0.4; }
+
+        .question-marks-left {
+            position: absolute;
+            top: 0px;
+            left: -30px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .question-marks-left span {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #f97316;
+            animation: fadeQ 2s ease-in-out infinite;
+            animation-delay: 0.5s;
+            display: block;
+        }
+        .question-marks-left span:nth-child(2) { animation-delay: 0.8s; font-size: 1rem; opacity: 0.6; }
+
+        @keyframes shrug {
+            0%, 100% { transform: rotate(-3deg) translateY(0); }
+            25% { transform: rotate(3deg) translateY(-5px); }
+            50% { transform: rotate(-3deg) translateY(0); }
+            75% { transform: rotate(3deg) translateY(-3px); }
+        }
+
+        @keyframes fadeQ {
+            0%, 100% { opacity: 1; transform: translateY(0); }
+            50% { opacity: 0.3; transform: translateY(-8px); }
+        }
+
+        /* 404 číslo */
+        .error-number {
+            font-size: clamp(5rem, 18vw, 10rem);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary) 0%, #f97316 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -4px;
+        }
+
+        .error-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .error-desc {
+            color: #64748b;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .error-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 15px;
+            font-weight: 800;
+            font-size: 0.95rem;
+            transition: 0.3s;
+            box-shadow: 0 8px 20px rgba(230, 57, 70, 0.3);
+        }
+        .btn-home:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 30px rgba(230, 57, 70, 0.4);
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            color: #64748b;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border: 2px solid #e2e8f0;
+            transition: 0.3s;
+        }
+        .btn-back:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .error-smoke {
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            opacity: 0.3;
+        }
+        .error-smoke i { font-size: 0.9rem; color: #94a3b8; animation: float 3s ease-in-out infinite; }
+        .error-smoke i:nth-child(2) { animation-delay: 0.5s; }
+        .error-smoke i:nth-child(3) { animation-delay: 1s; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); opacity: 0.3; }
+            50% { transform: translateY(-8px); opacity: 0.6; }
+        }
+
+        /* Dark mode */
+        [data-theme="dark"] .page-404 { background: #0f172a; }
+        [data-theme="dark"] .error-title { color: #e2e8f0; }
+        [data-theme="dark"] .error-desc { color: #94a3b8; }
+        [data-theme="dark"] .btn-back { border-color: #334155; color: #94a3b8; }
+        [data-theme="dark"] .btn-back:hover { border-color: var(--primary); color: var(--primary); }
+    </style>
+</head>
+<body>
+
+    <div class="nav-container">
+        <nav class="navbar-floating">
+            <a href="/" class="logo-group">
+                <img src="/img/ossp_logo.png" alt="Logo" class="logo-img">
+                <span class="logo-text">STUDY<span>HUB</span></span>
+            </a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Přepnout tmavý/světlý režim">
+                <i class="fa-solid fa-moon icon-moon"></i>
+                <i class="fa-solid fa-sun icon-sun"></i>
+            </button>
+            <input type="checkbox" id="nav-check">
+            <label for="nav-check" class="nav-btn">
+                <i class="fas fa-bars"></i>
+            </label>
+            <ul class="nav-links">
+                <li><a href="/">Domů</a></li>
+                <li><a href="/materialy">Materiály</a></li>
+                <li><a href="/maturita">Maturita</a></li>
+                <li><a href="/praxe">Praxe</a></li>
+                <li><a href="/zkouska">Zkouška</a></li>
+                <li><a href="/sporty">Sporty</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="page-404">
+        <div class="error-card">
+
+            <div class="firefighter-scene">
+                <div class="question-marks-left">
+                    <span>?</span>
+                    <span>?</span>
+                </div>
+                <span class="firefighter-body">🧑‍🚒</span>
+                <div class="question-marks">
+                    <span>?</span>
+                    <span>?</span>
+                    <span>?</span>
+                </div>
+            </div>
+
+            <div class="error-number">404</div>
+            <h1 class="error-title">Tady nic není, kamaráde.</h1>
+            <p class="error-desc">
+                Tato stránka neexistuje nebo byla přesunuta.<br>
+                Možná jsi napsal špatnou adresu, nebo jsi zašel moc daleko do kouře.
+            </p>
+
+            <div class="error-actions">
+                <a href="/" class="btn-home">
+                    <i class="fa-solid fa-house"></i>
+                    Zpět na hlavní stránku
+                </a>
+                <a href="javascript:history.back()" class="btn-back">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Jít zpět
+                </a>
+            </div>
+
+            <div class="error-smoke">
+                <i class="fa-solid fa-fire"></i>
+                <i class="fa-solid fa-fire"></i>
+                <i class="fa-solid fa-fire"></i>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="pro-footer">
+        <div class="container footer-content">
+            <div class="footer-top">
+                <div class="footer-logo">STUDY<span>HUB</span></div>
+                <div class="footer-socials">
+                    <a href="https://www.instagram.com/ossp.kolin/" target="_blank" rel="noopener noreferrer" aria-label="Instagram OSŠP Kolín">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/OSSPcz/" target="_blank" rel="noopener noreferrer" aria-label="Facebook OSŠP Kolín">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 StudyHub | OSŠP Kolín</p>
+                <p>Designed with 🔥</p>
+            </div>
+        </div>
+    </footer>
+
+<script src="script.js"></script>
+</body>
+</html>

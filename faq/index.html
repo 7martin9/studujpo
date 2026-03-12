@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>if(localStorage.getItem('theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}</script>
+    <title>FAQ | StudyHub</title>
+    <link rel="icon" type="image/png" href="/img/ossp_logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .faq-section { padding: 60px 0; background: var(--bg-gray); }
+        .faq-list { max-width: 900px; margin: 0 auto; }
+        
+        .faq-item {
+            background: white;
+            margin-bottom: 15px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: box-shadow 0.3s;
+        }
+        .faq-item:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+
+        .faq-question {
+            padding: 25px;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 1.05rem;
+            color: var(--dark);
+            transition: background 0.3s;
+        }
+        .faq-question:hover { background: #fdfdfd; }
+
+        .faq-icon { color: var(--primary); font-size: 1.3rem; width: 30px; text-align: center; flex-shrink: 0; }
+        .faq-arrow { transition: 0.4s; font-size: 0.9rem; opacity: 0.5; margin-left: 15px; }
+        .faq-item[open] .faq-arrow { transform: rotate(180deg); color: var(--primary); opacity: 1; }
+
+        .faq-answer {
+            padding: 0 25px 25px;
+            color: #64748b;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        /* Dark mode */
+        [data-theme="dark"] .faq-section { background: #0f172a; }
+        [data-theme="dark"] .faq-item { background: #1e293b; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        [data-theme="dark"] .faq-item:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+        [data-theme="dark"] .faq-question { color: #e2e8f0; }
+        [data-theme="dark"] .faq-question:hover { background: #263347; }
+        [data-theme="dark"] .faq-answer { color: #94a3b8; }
+
+        .hide-mobile { display: inline; }
+        @media (max-width: 768px) {
+            .hide-mobile { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav-container">
+        <nav class="navbar-floating">
+            <a href="../index.html" class="logo-group">
+                <img src="../img/ossp_logo.png" alt="Logo" class="logo-img">
+                <span class="logo-text">STUDY<span>HUB</span></span>
+            </a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Přepnout tmavý/světlý režim">
+                <i class="fa-solid fa-moon icon-moon"></i>
+                <i class="fa-solid fa-sun icon-sun"></i>
+            </button>
+            <input type="checkbox" id="nav-check">
+            <label for="nav-check" class="nav-btn">
+                <i class="fas fa-bars"></i>
+            </label>
+            <ul class="nav-links">
+                <li><a href="/">Domů</a></li>
+                <li class="nav-dropdown">
+                    <button aria-haspopup="true">
+                        Studium
+                        <span class="nav-dropdown-arrow">▼</span>
+                    </button>
+                    <ul class="nav-dropdown-menu">
+                        <li><a href="/materialy">Materiály</a></li>
+                        <li><a href="/maturita">Maturita</a></li>
+                        <li><a href="/zkouska">Závěrečná zkouška</a></li>
+                    </ul>
+                </li>
+                <li class="nav-dropdown">
+                    <button aria-haspopup="true">
+                        Praktická příprava
+                        <span class="nav-dropdown-arrow">▼</span>
+                    </button>
+                    <ul class="nav-dropdown-menu">
+                        <li><a href="/praxe">Odborná praxe</a></li>
+                        <li><a href="/sporty">Sporty</a></li>
+                        <li><a href="/nastroje">Interaktivní nástroje</a></li>
+                        <li><a href="/tahakydobapsy">Taháky do kapsy</a></li>
+                    </ul>
+                </li>
+                <li><a href="/faq">FAQ</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <header class="section-hero">
+        <div class="container hero-content">
+            <h1 style="margin-top: 40px;"><span class="accent-glow">FAQ</span> – Často kladené otázky</h1>
+            <p style="color: rgba(255,255,255,0.8);">Odpovědi na otázky, které si možná kladete.</p>
+        </div>
+    </header>
+
+    <section class="faq-section">
+        <div class="container faq-list">
+            
+            <details class="faq-item">
+                <summary class="faq-question">
+                    <div style="display: flex; align-items: center; gap: 15px; flex: 1;">
+                        <i class="fa-solid fa-question faq-icon"></i>
+                        <span>Komu je StudyHub určen?</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                </summary>
+                <div class="faq-answer">
+                    StudyHub je určen především studentům OSŠP Kolín oboru Požární ochrana. Nabízíme strukturované studijní materiály, maturitní okruhy, informace o odborné praxi a další podklady specifické pro obor Požární ochrana. Web je však přístupný všem, kdo se zajímají o hasiče a požární bezpečnost.
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary class="faq-question">
+                    <div style="display: flex; align-items: center; gap: 15px; flex: 1;">
+                        <i class="fa-solid fa-question faq-icon"></i>
+                        <span>Je StudyHub oficiální web školy?</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                </summary>
+                <div class="faq-answer">
+                    Ne, StudyHub je neoficiální studijní pomůcka vytvořená studenty a pro studenty. Jedná se o doplňkový zdroj informací, který si klade za cíl usnadnit učení a organizaci studijních materiálů.
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary class="faq-question">
+                    <div style="display: flex; align-items: center; gap: 15px; flex: 1;">
+                        <i class="fa-solid fa-question faq-icon"></i>
+                        <span>Jak najdu konkrétní téma v materiálech?</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                </summary>
+                <div class="faq-answer">
+                    Na stránce <strong>Materiály</strong> najdete vyhledávací pole v horní části. Zadejte název tématu nebo klíčové slovo (např. "dýchací přístroj") a web vám automaticky zobrazí všechna související témata.
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary class="faq-question">
+                    <div style="display: flex; align-items: center; gap: 15px; flex: 1;">
+                        <i class="fa-solid fa-question faq-icon"></i>
+                        <span>Co je to "Taháky do kapsy"?</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                </summary>
+                <div class="faq-answer">
+                    <strong>Taháky do kapsy</strong> budou stručné referenční materiály — shrnutí klíčových informací, které si budete moct vytisknout nebo uložit do telefonu. Jsou určeny pro rychlou orientaci a připomenutí si důležitých faktů. Aktuálně se připravují.
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary class="faq-question">
+                    <div style="display: flex; align-items: center; gap: 15px; flex: 1;">
+                        <i class="fa-solid fa-question faq-icon"></i>
+                        <span>Jak si změním barvu webu na tmavý režim?</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                </summary>
+                <div class="faq-answer">
+                    Jednoduše! V horní části každé stránky, v navigačním pruhu, najdete tlačítko se sluncem ☀️ nebo měsícem 🌙. Kliknutím na něj si přepnete mezi světlým a tmavým režimem. Vaše volba se automaticky uloží, takže si ji web pamatuje.
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary class="faq-question">
+                    <div style="display: flex; align-items: center; gap: 15px; flex: 1;">
+                        <i class="fa-solid fa-question faq-icon"></i>
+                        <span>Kde najdu informace o závěrečné zkoušce?</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                </summary>
+                <div class="faq-answer">
+                    Na stránce <strong>Zkouška</strong> najdete kritická pravidla (např. že pětka znamená neprospěl jsi), informace o opravných termínech a podklady ke stažení včetně deníku odborné praxe a otázek k přípravě.
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary class="faq-question">
+                    <div style="display: flex; align-items: center; gap: 15px; flex: 1;">
+                        <i class="fa-solid fa-question faq-icon"></i>
+                        <span>Mohu se podílet na vývoji webu?</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                </summary>
+                <div class="faq-answer">
+                    Ano! Pokud máte nápady na vylepšení, chybějící materiály nebo chyby, můžete nás kontaktovat přes (připravujeme). Váš feedback je pro nás cenný a pomáhá nám zlepšovat web.
+                </div>
+            </details>
+
+        </div>
+    </section>
+
+    <footer class="pro-footer">
+        <div class="container footer-content">
+            <div class="footer-top">
+                <div class="footer-logo">STUDY<span>HUB</span></div>
+                <div class="footer-socials">
+                    <a href="https://www.instagram.com/ossp.kolin/" target="_blank" rel="noopener noreferrer" aria-label="Instagram OSŠP Kolín">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/OSSPcz/" target="_blank" rel="noopener noreferrer" aria-label="Facebook OSŠP Kolín">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 StudyHub | OSŠP Kolín</p>
+                <p>Designed with 🔥</p>
+            </div>
+        </div>
+    </footer>
+
+<script src="../script.js"></script>
+</body>
+</html>
