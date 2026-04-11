@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>if(localStorage.getItem('theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}</script>
+    <title>Mini TFA | StudyHub</title>
+    <link rel="icon" type="image/png" href="/img/ossp_logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css">
+    <style>
+        .tfa-section { background: var(--bg-gray); padding: 50px 0 100px; }
+        
+        .tfa-card {
+            background: white;
+            border-radius: 28px;
+            padding: 36px;
+            margin-bottom: 32px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+        }
+
+        .tfa-card h2 {
+            color: var(--dark);
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tfa-card h2 i { color: var(--primary); font-size: 1.8rem; }
+
+        .tfa-card p {
+            color: #64748b;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .tfa-card h3 {
+            color: var(--dark);
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+
+        .tfa-disciplines {
+            display: grid;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .discipline-item {
+            background: #f8fafc;
+            border-left: 4px solid var(--primary);
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .discipline-item strong {
+            color: var(--dark);
+            font-weight: 800;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .discipline-item p { color: #475569; font-size: 0.95rem; line-height: 1.6; }
+
+        .tfa-highlight {
+            background: rgba(230, 57, 70, 0.08);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .tfa-highlight strong { color: var(--primary); }
+
+        .team-structure {
+            background: white;
+            border-radius: 16px;
+            padding: 18px;
+            margin-top: 14px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .team-structure h4 {
+            color: var(--dark);
+            font-weight: 800;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .team-structure ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .team-structure li {
+            padding: 8px 0;
+            color: #475569;
+            font-weight: 600;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .team-structure li:last-child { border-bottom: none; }
+        .team-structure li:before { content: "• "; color: var(--primary); font-weight: 900; margin-right: 8px; }
+
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .equipment-item {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #334155;
+        }
+
+        .tfa-planek-img {
+            margin: 28px 0;
+            text-align: center;
+        }
+
+        .tfa-planek-img img {
+            max-width: 100%;
+            height: auto;
+            max-height: 400px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .tfa-planek-img p {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: #64748b;
+            font-style: italic;
+        }
+
+        .tfa-comparison-warning {
+            background: linear-gradient(135deg, rgba(230, 57, 70, 0.12), rgba(244, 162, 97, 0.08));
+            border: 2px solid var(--primary);
+            border-radius: 16px;
+            padding: 28px;
+            margin: 32px 0;
+        }
+
+        .tfa-comparison-warning h3 {
+            color: var(--dark);
+            font-weight: 900;
+            margin-bottom: 12px;
+            font-size: 1.15rem;
+        }
+
+        .tfa-comparison-warning p {
+            color: #475569;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .tfa-comparison-warning p:last-child { margin-bottom: 0; }
+
+        @media (max-width: 900px) {
+            .tfa-card { padding: 24px 20px; }
+            .equipment-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Dark mode */
+        [data-theme="dark"] .tfa-section { background: #0f172a; }
+        [data-theme="dark"] .tfa-card { background: #1e293b; }
+        [data-theme="dark"] .tfa-card h2,
+        [data-theme="dark"] .tfa-card h3 { color: #e2e8f0; }
+        [data-theme="dark"] .tfa-card p { color: #94a3b8; }
+        [data-theme="dark"] .discipline-item,
+        [data-theme="dark"] .equipment-item,
+        [data-theme="dark"] .team-structure { background: #0f172a; border-color: #334155; }
+        [data-theme="dark"] .discipline-item strong,
+        [data-theme="dark"] .team-structure h4 { color: #e2e8f0; }
+        [data-theme="dark"] .discipline-item p,
+        [data-theme="dark"] .equipment-item,
+        [data-theme="dark"] .team-structure li { color: #94a3b8; }
+        [data-theme="dark"] .tfa-highlight { background: rgba(230, 57, 70, 0.1); }
+        [data-theme="dark"] .tfa-planek-img img { border-color: #334155; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+        [data-theme="dark"] .tfa-planek-img p { color: #94a3b8; }
+        [data-theme="dark"] .tfa-comparison-warning { background: linear-gradient(135deg, rgba(230, 57, 70, 0.15), rgba(244, 162, 97, 0.1)); border-color: #e63946; }
+        [data-theme="dark"] .tfa-comparison-warning h3 { color: #e2e8f0; }
+        [data-theme="dark"] .tfa-comparison-warning p { color: #94a3b8; }
+    </style>
+</head>
+<body>
+
+    <div class="nav-container">
+        <nav class="navbar-floating">
+            <a href="../../index.html" class="logo-group">
+                <img src="../../img/ossp_logo.png" alt="Logo" class="logo-img">
+                <span class="logo-text">STUDY<span>HUB</span></span>
+            </a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Přepnout tmavý/světlý režim">
+                <i class="fa-solid fa-moon icon-moon"></i>
+                <i class="fa-solid fa-sun icon-sun"></i>
+            </button>
+            <input type="checkbox" id="nav-check">
+            <label for="nav-check" class="nav-btn">
+                <i class="fas fa-bars"></i>
+            </label>
+            <ul class="nav-links">
+                <li><a href="/">Domů</a></li>
+                <li class="nav-dropdown">
+                    <button aria-haspopup="true">
+                        Studium
+                        <span class="nav-dropdown-arrow">▼</span>
+                    </button>
+                    <ul class="nav-dropdown-menu">
+                        <li><a href="/materialy">Studijní materiály</a></li>
+                        <li><a href="/procvicovani">Procvičování</a></li>
+                        <li><a href="/zkouska">Závěrečná zkouška</a></li>
+                    </ul>
+                </li>
+                <li class="nav-dropdown">
+                    <button aria-haspopup="true">
+                        Praktická příprava
+                        <span class="nav-dropdown-arrow">▼</span>
+                    </button>
+                    <ul class="nav-dropdown-menu">
+                        <li><a href="/praxe">Odborná praxe</a></li>
+                        <li><a href="/sporty">Sporty</a></li>
+                        <li><a href="/nastroje">Interaktivní nástroje</a></li>
+                        <li><a href="/tahaky">Taháky do kapsy</a></li>
+                    </ul>
+                </li>
+                <li><a href="/faq">FAQ</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <header class="section-hero">
+        <div class="container hero-content">
+            <h1 style="margin-top: 40px;">Mini <span class="accent-glow">TFA</span></h1>
+            <p style="color: rgba(255,255,255,0.8);">Školní silový víceboj: síla, vytrvalost a tým.</p>
+        </div>
+    </header>
+
+    <main class="tfa-section">
+        <div class="container">
+
+            <!-- Co je TFA -->
+            <div class="tfa-card">
+                <h2><i class="fa-solid fa-fire"></i> Co je TFA?</h2>
+                <p>TFA (Toughest Firefighter Alive) je prestižní hasičský silový víceboj, který testuje fyzickou sílu a vytrvalost. Jednotlivé disciplíny jsou navrženy tak, aby simulovaly skutečné situace, které hasiči řeší během zásahů – všechno v plné zásahové výstroji. Není tu cíl vyvrátit nějaké speciální techniky, ale spíše prokázat fyzickou odolnost a týmovou spolupráci.</p>
+                <p>Naše školní Mini TFA je především o zábavě, soutěživosti a motivaci. Je to příležitost poznat své fyzické možnosti, poměřit se s kamarády a zároveň se pobavit. Pamatuj – není to závod jen pro hasiče, ale pro všechny, kteří si troufnou!</p>
+            </div>
+
+            <!-- Upozornění na uskutečnění -->
+            <div class="tfa-comparison-warning">
+                <div style="display: flex; gap: 16px; align-items: flex-start;">
+                    <i class="fa-solid fa-warning" style="color: var(--primary); font-size: 2rem; flex-shrink: 0; margin-top: 4px;"></i>
+                    <div>
+                        <h3>Školní Mini TFA vs. Reálná soutěž TFA</h3>
+                        <p>
+                            <strong>Naše školní Mini TFA je zkrácená a zjednoduše verze</strong> opravdové TFA soutěže. Navrhli jsme ji tak, aby ji zvládli všichni účastníci bez ohledu na jejich fyzickou přípravu. Cílem je zábava, týmová spolupráce a motivace.
+                        </p>
+                        <p>
+                            <strong>Opravdová TFA soutěž</strong> je však mnohem náročnější a vyžaduje vážnou dlouhodobou přípravu. Pokud by tě zajímalo vyzkoušet si skutečnou TFA, počítej s intenzivním tréninkem a specifickou fyzickou přípravou. Naše Mini verze je jen nástrojem k přiblížení si, co tato soutěž obnáší.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Školní Mini TFA -->
+            <div class="tfa-card">
+                <h2><i class="fa-solid fa-medal"></i> Školní Mini TFA</h2>
+                <p>Naše škola pořádá Mini TFA soutěž <strong>během branného dne</strong>, kdy se studenti mohou rozhodnout, zda se chtějí zúčastnit soutěžní části nebo tradičních branných disciplín.</p>
+                
+                <div class="tfa-highlight">
+                    <strong><i class="fa-solid fa-info-circle"></i> Zaměření soutěže</strong>
+                    <p style="margin-top: 8px; margin-bottom: 0;">Disciplíny jsou zaměřeny <strong>primárně na sílu a vytrvalost</strong>. Nejsou vyžadovány žádné speciální hasičské dovednosti – účastníci budou mít jen minimální výhodu, pokud mají hasiče v rodině či zkušenosti. Nebezpečné disciplíny nejsou do soutěže zařazeny.</p>
+                </div>
+
+                <h3>Formát a týmy</h3>
+                <p>Soutěž probíhá v čtyřčlenných týmech se <strong>smíšeným složením: 2 ženy a 2 muži</strong>. Jeden ze soutěžících <strong>musí být pedagog</strong> (může to být žena i muž). Týmy si skládají sami studenti.</p>
+                
+                <div class="team-structure">
+                    <h4>Pravidla skládání týmu</h4>
+                    <ul>
+                        <li>Jeden člen musí být vyučující (muž nebo žena)</li>
+                        <li>Tým obsahuje 2 ženy a 2 muže</li>
+                        <li>Maximálně 2 studenti z jednoho oboru v jednom týmu</li>
+                        <li>Studenti si týmy skládají sami</li>
+                    </ul>
+                </div>
+
+                <p style="margin-top: 18px; color: #64748b; font-size: 0.95rem;"><strong>Individuální kategorie:</strong> Vedle týmové soutěže jsou vyhlašovány i jednotlivé kategorie pro osobní výkony.</p>
+            </div>
+
+            <!-- Disciplíny -->
+            <div class="tfa-card">
+                <h2><i class="fa-solid fa-dumbbell"></i> Disciplíny</h2>
+                <p>Soutěž se skládá z pěti různých disciplín, kterou postupně absolvují všichni účastnící. Parametry (vzdálenosti, hmotnosti, počty opakování) jsou upravené pro muže a ženy, aby byla soutěž spravedlivá.</p>
+                
+                <div class="tfa-disciplines">
+                    <div class="discipline-item">
+                        <strong style="font-size: 1.1rem; display: flex; align-items: center; gap: 10px;"><span style="background: var(--primary); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.95rem;">1</span> Roztažení hadic</strong>
+                        <p style="margin-top: 10px;">Závodník roztáhne hadice poskládané do harmoniky od požární stříkačky až do vyznačeného prostoru (přibližně 35 - 40 m).</p>
+                        <p><strong>Muži:</strong> 2×2 hadice 75 B s proudnicemi</p>
+                        <p><strong>Ženy:</strong> 2×2 hadice 52 C s proudnicemi</p>
+                    </div>
+
+                    <div class="discipline-item">
+                        <strong style="font-size: 1.1rem; display: flex; align-items: center; gap: 10px;"><span style="background: var(--primary); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.95rem;">2</span> Tažení figuríny</strong>
+                        <p style="margin-top: 10px;">Soutěžící přetáhnou připravenou figurínu po určené trase. Pokud jsou k dispozici dvě hmotnosti, použijí se podle pohlaví. Jinak má muž delší trasu tažení.</p>
+                    </div>
+
+                    <div class="discipline-item">
+                        <strong style="font-size: 1.1rem; display: flex; align-items: center; gap: 10px;"><span style="background: var(--primary); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.95rem;">3</span> Přenos zátěže</strong>
+                        <p style="margin-top: 10px;">Soutěžící přenesou zátěž na určenou vzdálenost.</p>
+                        <p><strong>Muži:</strong> Nesou podstavce dopravního značení</p>
+                        <p><strong>Ženy:</strong> Barely naplněné vodou nebo pískem</p>
+                    </div>
+
+                    <div class="discipline-item">
+                        <strong style="font-size: 1.1rem; display: flex; align-items: center; gap: 10px;"><span style="background: var(--primary); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.95rem;">4</span> Hammerbox</strong>
+                        <p style="margin-top: 10px;">Klasická disciplína – údery kladivem do speciálního zařízení.</p>
+                        <p><strong>Muži:</strong> 40 dvojúderů (40 dolů, 40 nahoru)</p>
+                        <p><strong>Ženy:</strong> 20 dvojúderů (20 dolů, 20 nahoru) – obvykle s lehčí palicí</p>
+                    </div>
+
+                    <div class="discipline-item">
+                        <strong style="font-size: 1.1rem; display: flex; align-items: center; gap: 10px;"><span style="background: var(--primary); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.95rem;">5</span> Výstup po schodišti</strong>
+                        <p style="margin-top: 10px;">Soutěžící vběhnou do budovy hlavním vchodem a musejí vystoupat po schodech do vyznačeného místa.</p>
+                    </div>
+                </div>
+
+                <div class="tfa-planek-img">
+                    <img src="../../img/planek_trati.png" alt="Plán tratě Mini TFA soutěže">
+                    <p>Plánek trati soutěžných disciplín</p>
+                </div>
+            </div>
+
+            <!-- Vybavení -->
+            <div class="tfa-card">
+                <h2><i class="fa-solid fa-vest"></i> Vybavení a oděv</h2>
+                <p>Všichni účastníci soutěží v zásahové výstroji, aby si zkušenost byla co nejblíže reálným podmínkám hasiče:</p>
+                
+                <div class="equipment-grid">
+                    <div class="equipment-item"><strong>✓</strong> Trojvrstvý zásahový kabát</div>
+                    <div class="equipment-item"><strong>✓</strong> Zásahová přilba</div>
+                    <div class="equipment-item"><strong>✓</strong> Dlouhé kalhoty (volba účastníka)</div>
+                    <div class="equipment-item"><strong>✓</strong> Sportovní obuv</div>
+                    <div class="equipment-item"><strong>✓</strong> Izolační dýchací přístroj (bez masky)</div>
+                    <div class="equipment-item"><strong>○</strong> Rukavice (volitelné)</div>
+                </div>
+
+                <p style="margin-top: 16px; color: #64748b; font-size: 0.9rem;"><i class="fa-solid fa-info-circle" style="color: var(--primary); margin-right: 6px;"></i> Veškeré vybavení bude poskytnuto školou. Účastníci si volí pouze kalhoty (musí být dlouhé).</p>
+            </div>
+
+            <!-- Jak se účastnit -->
+            <div class="tfa-card">
+                <h2><i class="fa-solid fa-hand-fist" style="color: var(--primary);"></i> Jak se zúčastnit?</h2>
+                <p>Účast na Mini TFA soutěži je <strong>dobrovolná</strong>. Studenti se mohou zaregistrovat buď jako:</p>
+                
+                <div class="tfa-highlight">
+                    <strong>Člen týmu</strong> – Skládáte si smíšený 4-členný tým (2 muži, 2 ženy) a startujete v soutěži<br><br>
+                    <strong>Individuální účastník</strong> – Startujete jako jednotlivec v jednotlivých disciplínách
+                </div>
+
+                <p>Přesnější informace o registraci a harmonogramu budou oznameny během školního roku. Bude k dispozici sdílená tabulka, do které se budou mít možnost zaregistrovat zájemci.</p>
+
+                <p style="margin-top: 16px; color: #64748b; font-size: 0.95rem; border-top: 1px solid #e2e8f0; padding-top: 16px;"><strong><i class="fa-solid fa-lightbulb"></i> Tip:</strong> Pokud vás zajímá fyzická příprava, můžete začít trénovat ve svém volném čase. Nejde o to být nejlépe připravený, ale podpořit svůj tým a zažít netradiční školní akci!</p>
+            </div>
+
+            <!-- Zpět -->
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="/sporty" style="display: inline-flex; align-items: center; gap: 8px; color: var(--primary); font-weight: 800; text-decoration: none; padding: 14px 22px; border-radius: 12px; border: 1px solid var(--primary); transition: 0.3s;">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Zpět na sportovní aktivity
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="pro-footer">
+        <div class="container footer-content">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">STUDY<span>HUB</span></div>
+                    <p class="footer-disclaimer">Neoficiální studentský projekt. StudyHub není oficiálně spojen s OSŠP Kolín ani ji nezastupuje.</p>
+                </div>
+                <div class="footer-social-block">
+                    <p class="footer-social-label">Oficiální sociální sítě školy</p>
+                    <div class="footer-socials">
+                        <a href="https://www.instagram.com/ossp.kolin/" target="_blank" rel="noopener noreferrer" aria-label="Instagram OSŠP Kolín">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com/OSSPcz/" target="_blank" rel="noopener noreferrer" aria-label="Facebook OSŠP Kolín">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 StudyHub</p>
+                <p><a class="footer-link" href="/kontakt">Kontakt</a></p>
+                <p class="footer-credit">Vytvořili MV a AB</p>
+            </div>
+        </div>
+    </footer>
+
+<script src="../../script.js"></script>
+</body>
+</html>
