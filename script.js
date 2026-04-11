@@ -120,6 +120,7 @@ function filterQuestions() {
 
     const filter = input.value.toLowerCase();
     const categories = document.querySelectorAll('.subject-category');
+    let hasAnyVisibleCategory = false;
 
     categories.forEach(cat => {
         let hasVisibleQuestion = false;
@@ -173,12 +174,14 @@ function filterQuestions() {
             if (hasVisibleQuestion) {
                 cat.style.display = "block";
                 details.open = true;
+                hasAnyVisibleCategory = true;
             } else {
                 cat.style.display = "none";
             }
         } else {
             // Reset do původního stavu, když je pole prázdné
             cat.style.display = "block";
+            hasAnyVisibleCategory = true;
             cat.querySelectorAll('.question-card, .sub-question-list, .question-number-badge, .sub-question-item').forEach(el => {
                 el.style.display = '';
             });
@@ -186,6 +189,21 @@ function filterQuestions() {
             // details.open = false; 
         }
     });
+
+    const materialsContainer = document.querySelector('.materials-list-section > .container');
+    if (!materialsContainer) return;
+
+    let emptyState = document.getElementById('materialsNoResults');
+    if (!emptyState) {
+        emptyState = document.createElement('div');
+        emptyState.id = 'materialsNoResults';
+        emptyState.className = 'materials-empty-state';
+        emptyState.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i><h3>Nic jsme nenašli</h3><p>Zkuste jiné klíčové slovo nebo zkraťte hledaný výraz.</p>';
+        materialsContainer.appendChild(emptyState);
+    }
+
+    const showEmptyState = filter !== '' && !hasAnyVisibleCategory;
+    emptyState.style.display = showEmptyState ? 'block' : 'none';
 }
 
 // --- 3. OŠETŘENÍ CHYB (Event Listener) ---
