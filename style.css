@@ -1498,6 +1498,10 @@ button:hover {
     margin-top: 30px;
 }
 
+.praxe-grid-info + .praxe-card {
+    margin-top: 60px;
+}
+
 .small-card { background: white; padding: 35px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
 .small-card.dark { background: var(--dark); color: white; }
 

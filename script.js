@@ -83,6 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     const dropdownButtons = document.querySelectorAll('.nav-dropdown > button');
+    const dropdowns = document.querySelectorAll('.nav-dropdown');
+    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
     dropdownButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -95,6 +97,25 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
+
+    // Na desktopu otevirame dropdown uz pri najeti mysi
+    if (canHover) {
+        dropdowns.forEach(dropdown => {
+            const btn = dropdown.querySelector(':scope > button');
+            if (!btn) return;
+
+            dropdown.addEventListener('mouseenter', () => {
+                dropdownButtons.forEach(otherBtn => {
+                    if (otherBtn !== btn) otherBtn.classList.remove('active');
+                });
+                btn.classList.add('active');
+            });
+
+            dropdown.addEventListener('mouseleave', () => {
+                btn.classList.remove('active');
+            });
+        });
+    }
 
     // Zavři dropdown když se klikne mimo něj
     document.addEventListener('click', (e) => {
