@@ -773,6 +773,31 @@
 
             let currentMockQuestion = null;
             let currentRenderedQuiz = { mainQuiz: [], impactQuiz: [] };
+            let mockSubmitted = false;
+            const STORAGE_KEY = 'studyhub.practice.v1';
+
+            function loadPracticeState() {
+                try {
+                    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+                } catch (e) {
+                    return {};
+                }
+            }
+
+            function savePracticeState(nextState) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(nextState));
+            }
+
+            function addPracticeStats(delta) {
+                const state = loadPracticeState();
+                const nextState = {
+                    quizTotal: (state.quizTotal || 0) + (delta.quizTotal || 0),
+                    quizCorrect: state.quizCorrect || 0,
+                    quizWrong: state.quizWrong || 0,
+                    mockTotal: (state.mockTotal || 0) + (delta.mockTotal || 0)
+                };
+                savePracticeState(nextState);
+            }
 
             function escapeHtml(value) {
                 return String(value)
@@ -816,6 +841,7 @@
                 mockContentEl.style.display = 'none';
                 currentMockQuestion = null;
                 currentRenderedQuiz = { mainQuiz: [], impactQuiz: [] };
+                mockSubmitted = false;
             }
 
             function renderQuizSection(target, questions, sectionKey) {
@@ -864,6 +890,7 @@
 
                 currentMockQuestion = subject.questions[Math.floor(Math.random() * subject.questions.length)];
                 currentRenderedQuiz = pickQuestionsByLimit(currentMockQuestion, QUESTIONS_PER_DRAW);
+                mockSubmitted = false;
 
                 mockQuestionEl.textContent = currentMockQuestion.title;
                 renderQuizSection(mockMainQuizEl, currentRenderedQuiz.mainQuiz, 'main');
@@ -920,6 +947,11 @@
                 if (unanswered > 0) {
                     mockResultEl.textContent = 'Nejprve odpověz na všechny podotázky.';
                     return;
+                }
+
+                if (!mockSubmitted) {
+                    addPracticeStats({ quizTotal: 1, mockTotal: 1 });
+                    mockSubmitted = true;
                 }
 
                 mockResultEl.textContent = 'Výsledek: ' + correct + '/' + total + ' správně.';

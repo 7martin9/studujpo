@@ -421,6 +421,31 @@
 
             let currentQuiz = null;
             let usedIndexes = [];
+            let questionAnswered = false;
+            const STORAGE_KEY = 'studyhub.practice.v1';
+
+            function loadPracticeState() {
+                try {
+                    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+                } catch (e) {
+                    return {};
+                }
+            }
+
+            function savePracticeState(nextState) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(nextState));
+            }
+
+            function addPracticeStats(delta) {
+                const state = loadPracticeState();
+                const nextState = {
+                    quizTotal: (state.quizTotal || 0) + (delta.quizTotal || 0),
+                    quizCorrect: (state.quizCorrect || 0) + (delta.quizCorrect || 0),
+                    quizWrong: (state.quizWrong || 0) + (delta.quizWrong || 0),
+                    mockTotal: state.mockTotal || 0
+                };
+                savePracticeState(nextState);
+            }
 
             function shuffleArray(items) {
                 const out = items.slice();
@@ -463,6 +488,7 @@
 
             function nextQuizQuestion() {
                 currentQuiz = withShuffledOptions(pickRandomQuestion());
+                questionAnswered = false;
                 quizTopicLabelEl.textContent = 'Téma: ' + currentQuiz.topic;
                 quizQuestionEl.textContent = currentQuiz.q;
                 quizFeedbackEl.textContent = '';
@@ -479,6 +505,7 @@
             quizOptionsEl.addEventListener('click', function (e) {
                 const btn = e.target.closest('.quiz-option');
                 if (!btn || !currentQuiz) return;
+                if (questionAnswered) return;
 
                 const selected = Number(btn.getAttribute('data-opt'));
                 const all = quizOptionsEl.querySelectorAll('.quiz-option');
@@ -495,11 +522,15 @@
                     btn.classList.add('wrong');
                     quizFeedbackEl.textContent = 'Nesprávně. Správná odpověď je označená zeleně.';
                     quizFeedbackEl.style.color = '#b91c1c';
+                    addPracticeStats({ quizTotal: 1, quizWrong: 1 });
+                    questionAnswered = true;
                     return;
                 }
 
                 quizFeedbackEl.textContent = 'Správně.';
                 quizFeedbackEl.style.color = '#166534';
+                addPracticeStats({ quizTotal: 1, quizCorrect: 1 });
+                questionAnswered = true;
             });
 
             nextBtn.addEventListener('click', nextQuizQuestion);
