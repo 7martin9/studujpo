@@ -154,6 +154,7 @@ function filterQuestions() {
     if (!input) return; // Pokud na stránce vyhledávač není, nic nedělej
 
     const filter = input.value.toLowerCase();
+    const normalizedFilter = filter.replace(/\s+/g, '');
     const categories = document.querySelectorAll('.subject-category');
     let hasAnyVisibleCategory = false;
 
@@ -180,9 +181,21 @@ function filterQuestions() {
             const items = list.querySelectorAll('.sub-question-item');
             let visibleInThisGroup = false;
 
+            const badgeText = badge ? badge.innerText.toLowerCase() : '';
+            const badgeMatch = badgeText.match(/ot[aá]zka\s*(\d+)/);
+            const questionNumber = badgeMatch ? badgeMatch[1] : '';
+
             items.forEach(item => {
-                const text = item.querySelector('.q-text').innerText.toLowerCase();
-                const isVisible = text.includes(filter) || filter === '';
+                const qTextEl = item.querySelector('.q-text');
+                const text = qTextEl ? qTextEl.innerText.toLowerCase() : '';
+                const letterMatch = text.match(/^([ab])\)/);
+                const questionLetter = letterMatch ? letterMatch[1] : '';
+                const designation = (questionNumber + questionLetter).toLowerCase();
+
+                const isVisible =
+                    filter === '' ||
+                    text.includes(filter) ||
+                    (designation && designation.includes(normalizedFilter));
 
                 item.style.display = isVisible ? 'flex' : 'none';
 

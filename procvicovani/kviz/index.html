@@ -13,168 +13,185 @@
 
     <style>
         .practice-section {
-            background: var(--bg-gray);
+            --ink: #1b2433;
+            --ink-soft: #5b6c84;
+            --line: #d7dfeb;
+            --card: #ffffff;
+            --card-soft: #f3f7fc;
+            --accent: #e11d48;
+            --accent-2: #f97316;
+            background:
+                radial-gradient(960px 340px at 8% 0%, rgba(225, 29, 72, 0.13), transparent 66%),
+                radial-gradient(980px 340px at 92% 8%, rgba(249, 115, 22, 0.12), transparent 68%),
+                var(--bg-gray);
             padding: 44px 0 100px;
         }
 
         .practice-card {
-            background: #fff;
-            border-radius: 24px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 14px 36px rgba(15, 23, 42, 0.07);
-            padding: 24px;
-            max-width: 920px;
+            background: linear-gradient(180deg, #ffffff 0%, #fdfefe 100%);
+            border-radius: 26px;
+            border: 1px solid var(--line);
+            box-shadow: 0 26px 60px rgba(15, 23, 42, 0.14);
+            padding: 26px;
+            max-width: 980px;
             margin: 0 auto;
         }
 
+        .practice-head {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .head-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            box-shadow: 0 8px 20px rgba(225, 29, 72, 0.34);
+        }
+
         .practice-card h2 {
-            font-size: 1.25rem;
-            color: var(--dark);
-            margin-bottom: 8px;
+            font-size: 1.36rem;
+            color: var(--ink);
+            margin: 0 0 6px;
             font-weight: 900;
         }
 
         .practice-card p {
-            color: #64748b;
+            color: var(--ink-soft);
             line-height: 1.55;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
         .practice-controls {
+            margin: 16px 0;
             display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin: 12px 0;
+            justify-content: flex-start;
         }
 
         .practice-btn {
-            background: #0f172a;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
             color: #fff;
-            border: 1px solid #0f172a;
+            border: 1px solid transparent;
             border-radius: 12px;
-            padding: 10px 14px;
+            padding: 11px 16px;
             font-weight: 800;
-            font-size: 0.86rem;
+            font-size: 0.9rem;
             cursor: pointer;
-            transition: 0.2s;
+            transition: transform .16s ease, box-shadow .16s ease;
         }
 
-        .practice-btn:hover { transform: translateY(-1px); }
-        .practice-btn.alt { background: #fff; color: #0f172a; border-color: #cbd5e1; }
+        .practice-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 22px rgba(225, 29, 72, 0.28);
+        }
 
         .practice-panel {
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            background: #f8fafc;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: var(--card-soft);
             padding: 14px;
         }
 
-        .prompt {
-            color: #0f172a;
-            font-weight: 800;
+        .quiz-meta {
+            display: inline-flex;
             margin-bottom: 8px;
+            border: 1px solid #d2deec;
+            background: #fff;
+            border-radius: 10px;
+            padding: 6px 10px;
+            font-size: .82rem;
+            font-weight: 800;
+            color: #384a63;
+        }
+
+        .prompt {
+            color: var(--ink);
+            font-weight: 900;
+            margin-bottom: 10px;
+            font-size: 1.03rem;
         }
 
         .quiz-options {
             display: grid;
-            gap: 8px;
-            margin-top: 10px;
+            gap: 10px;
         }
 
         .quiz-option {
-            border: 1px solid #cbd5e1;
+            border: 1px solid #cad6e6;
             background: #fff;
             border-radius: 12px;
-            padding: 10px 12px;
+            padding: 11px 12px;
             cursor: pointer;
             text-align: left;
             font-weight: 700;
-            color: #1e293b;
+            color: #243449;
         }
 
         .quiz-option.correct { border-color: #16a34a; background: #ecfdf3; }
         .quiz-option.wrong { border-color: #dc2626; background: #fef2f2; }
 
         .quick-stats {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 10px;
-            flex-wrap: wrap;
             margin-top: 14px;
         }
 
         .quick-stats span {
             background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
+            border: 1px solid #dae2ee;
+            border-radius: 11px;
             padding: 8px 10px;
             font-weight: 700;
-            color: #334155;
-            font-size: 0.88rem;
+            color: #33465e;
+            font-size: 0.84rem;
         }
 
         .back-link {
             display: inline-flex;
             margin-bottom: 14px;
             text-decoration: none;
-            color: #be123c;
+            color: var(--accent);
             font-weight: 800;
         }
 
-        [data-theme="dark"] .practice-section { background: #0f172a; }
-        [data-theme="dark"] .practice-card,
+        [data-theme="dark"] .practice-section {
+            --ink: #e5edf8;
+            --ink-soft: #a8b7ca;
+            --line: #344357;
+            --card: #162133;
+            --card-soft: #0e172a;
+        }
+
+        [data-theme="dark"] .practice-card {
+            background: linear-gradient(180deg, #162133 0%, #111a2c 100%);
+        }
+
         [data-theme="dark"] .practice-panel,
         [data-theme="dark"] .quick-stats span,
-        [data-theme="dark"] .quiz-option { background: #1e293b; border-color: #334155; color: #e2e8f0; }
-        [data-theme="dark"] .practice-card p { color: #94a3b8; }
-        [data-theme="dark"] .prompt { color: #e2e8f0; }
-        [data-theme="dark"] .quiz-option.correct { background: #122c1b; border-color: #16a34a; }
-        [data-theme="dark"] .quiz-option.wrong { background: #3a1616; border-color: #dc2626; }
+        [data-theme="dark"] .quiz-option,
+        [data-theme="dark"] .quiz-meta {
+            background: #0f172a;
+            border-color: #334155;
+            color: #e2e8f0;
+        }
+
+        [data-theme="dark"] .quiz-option.correct { background: #10331f; }
+        [data-theme="dark"] .quiz-option.wrong { background: #3a1616; }
 
         @media (max-width: 768px) {
-            .practice-section {
-                padding: 30px 0 76px;
-            }
-
-            .practice-card {
-                padding: 18px 14px;
-                border-radius: 18px;
-            }
-
-            .practice-controls {
-                flex-direction: column;
-            }
-
-            .practice-btn,
-            .practice-btn.alt {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .practice-panel {
-                padding: 12px;
-            }
-
-            .quiz-options {
-                gap: 10px;
-            }
-
-            .quiz-option {
-                min-height: 44px;
-                padding: 12px 14px;
-            }
-
-            .quick-stats {
-                flex-direction: column;
-            }
-
-            .quick-stats span {
-                width: 100%;
-            }
-
-            .back-link {
-                margin-bottom: 12px;
-                font-size: 0.92rem;
-            }
+            .practice-section { padding: 30px 0 76px; }
+            .practice-card { padding: 18px 14px; border-radius: 18px; }
+            .practice-controls { display: block; }
+            .practice-btn { width: 100%; }
+            .quick-stats { grid-template-columns: 1fr; }
+            .quiz-option { min-height: 44px; }
         }
     </style>
 </head>
@@ -228,7 +245,7 @@
     <header class="section-hero">
         <div class="container hero-content">
             <h1 style="margin-top: 40px;">Kvíz po <span class="accent-glow">tématech</span></h1>
-            <p style="color: rgba(255,255,255,0.8);">Demonstrační režim s obecnou zkušební otázkou a odpověďmi.</p>
+            <p style="color: rgba(255,255,255,0.84);">Náhodné otázky z témat, která už mají zpracované PDF podklady.</p>
         </div>
     </header>
 
@@ -236,29 +253,29 @@
         <div class="container">
             <section class="practice-card" aria-labelledby="quiz-title">
                 <a class="back-link" href="/procvicovani"><i class="fa-solid fa-arrow-left"></i>&nbsp;Zpět na rozcestník</a>
-                <h2 id="quiz-title"><i class="fa-solid fa-list-check"></i> Tréninkový kvíz</h2>
-                <p>Tato verze je demonstrační. Zobrazuje obecné texty bez skutečného vyhodnocení.</p>
+                <div class="practice-head">
+                    <div class="head-icon"><i class="fa-solid fa-list-check"></i></div>
+                    <div>
+                        <h2 id="quiz-title">Tréninkový kvíz</h2>
+                        <p id="quiz-subject-status">Klikni na spuštění a vylosuje se náhodná otázka z dostupných témat.</p>
+                    </div>
+                </div>
 
                 <div class="practice-controls">
-                    <select id="quiz-topic" class="practice-btn alt" style="cursor:pointer;">
-                        <option value="all">Zkouška</option>
-                        <option value="a">Zkušební sada A</option>
-                        <option value="b">Zkušební sada B</option>
-                        <option value="c">Zkušební sada C</option>
-                    </select>
-                    <button class="practice-btn" id="quiz-next">Zobrazit zkušební otázku</button>
+                    <button class="practice-btn" id="quiz-next"><i class="fa-solid fa-bolt"></i> Spustit kvíz</button>
                 </div>
 
                 <div class="practice-panel">
-                    <div class="prompt" id="quiz-question">Klikněte na tlačítko Zobrazit zkušební otázku.</div>
+                    <div class="quiz-meta" id="quiz-topic-label">Téma: zatím nevylosováno</div>
+                    <div class="prompt" id="quiz-question">Klikni na tlačítko Spustit kvíz a vylosuje se náhodná otázka.</div>
                     <div class="quiz-options" id="quiz-options"></div>
                     <p id="quiz-feedback" style="margin-top:10px; font-weight:700;"></p>
                 </div>
 
                 <div class="quick-stats">
-                    <span>Režim: <strong>Demonstrační</strong></span>
-                    <span>Otázka: <strong>Zkušební</strong></span>
-                    <span>Odpověď: <strong>Zkušební</strong></span>
+                    <span>Zdroje: <strong>jen PDF podklady</strong></span>
+                    <span>Dostupná témata: <strong>7</strong></span>
+                    <span>Režim: <strong>náhodná otázka</strong></span>
                 </div>
             </section>
         </div>
@@ -293,97 +310,173 @@
 
     <script>
         (function () {
-            const quizPool = [
+            const TOPIC_QUESTIONS = [
                 {
-                    topic: 'all',
-                    q: 'Zkušební otázka',
-                    options: [
-                        'Zkušební odpověď A',
-                        'Zkušební odpověď B',
-                        'Zkušební odpověď C',
-                        'Zkušební odpověď D'
+                    topic: '3b - Hasiva',
+                    questions: [
+                        { q: 'Co je hlavním úkolem hasiv?', options: ['Přerušit proces hoření a zabránit šíření požáru', 'Zvýšit teplotu hořící látky', 'Dodat do prostoru kyslík', 'Zvýšit hořlavost materiálu'], correct: 0 },
+                        { q: 'Které tři podmínky tvoří trojúhelník hoření podle podkladu?', options: ['Hořlavá látka, kyslík, dostatečně vysoká teplota', 'Voda, pěna, prášek', 'Tlak, čas, proudění', 'Palivo, pára, vítr'], correct: 0 },
+                        { q: 'Který princip hašení znamená snížení teploty pod teplotu vznícení?', options: ['Ochlazování', 'Zamezení přístupu kyslíku', 'Přerušení chemické reakce', 'Izolace zásahového prostoru'], correct: 0 },
+                        { q: 'Na co je podle podkladu vhodná voda?', options: ['Pevné látky (dřevo, papír, textil)', 'Elektrická zařízení', 'Hořlavé kapaliny', 'Některé kovy'], correct: 0 },
+                        { q: 'Jaký účinek má pěna?', options: ['Vytváří vrstvu oddělující kyslík a zároveň ochlazuje', 'Jen ochlazuje bez oddělení kyslíku', 'Jen přerušuje chemickou reakci', 'Jen zvyšuje tlak v hadicích'], correct: 0 },
+                        { q: 'Co je nevýhodou prášku uvedenou v podkladu?', options: ['Znečišťuje prostředí a může poškodit zařízení', 'Nelze použít na kapaliny', 'Nelze použít na plyny', 'Nefunguje v interiéru'], correct: 0 },
+                        { q: 'Na co je CO2 podle podkladu vhodný?', options: ['Elektrická a citlivá zařízení', 'Hořlavé kovy', 'Tuky a oleje', 'Pevné látky v lese'], correct: 0 },
+                        { q: 'Která třída požáru je v podkladu uvedena pro hořlavé plyny?', options: ['C', 'A', 'B', 'F'], correct: 0 }
                     ]
                 },
                 {
-                    topic: 'a',
-                    q: 'Zkušební otázka (sada A)',
-                    options: [
-                        'Zkušební odpověď A1',
-                        'Zkušební odpověď A2',
-                        'Zkušební odpověď A3',
-                        'Zkušební odpověď A4'
+                    topic: '4a - Práva a povinnosti příslušníků HZS ČR',
+                    questions: [
+                        { q: 'Který zákon je v podkladu uveden jako zákon o HZS ČR?', options: ['320/2015 Sb.', '133/1985 Sb.', '239/2000 Sb.', '361/2003 Sb.'], correct: 0 },
+                        { q: 'Jaké je postavení příslušníků HZS podle podkladu?', options: ['Státní zaměstnanci ve služebním poměru', 'Zaměstnanci obcí', 'Dobrovolní členové bez služebního poměru', 'Soukromí bezpečnostní pracovníci'], correct: 0 },
+                        { q: 'Jaké oprávnění má hasič při zásahu podle podkladu?', options: ['Vstoupit do obydlí, objektu nebo na pozemek při ohrožení života, zdraví nebo majetku', 'Vstoupit kamkoli bez podmínek', 'Vstoupit jen se souhlasem vlastníka', 'Vstoupit pouze do veřejných budov'], correct: 0 },
+                        { q: 'Která povinnost je uvedena v podkladu?', options: ['Zachovávat mlčenlivost o skutečnostech zjištěných při výkonu služby', 'Informovat veřejnost o všech osobních údajích', 'Ignorovat pokyny velitele zásahu', 'Používat vlastní neověřené postupy'], correct: 0 },
+                        { q: 'Jak má hasič jednat při změně situace podle podkladu?', options: ['Samostatně a iniciativně', 'Pasivně čekat bez hlášení', 'Opustit stanoviště bez pokynu', 'Přerušit spojení s velitelem'], correct: 0 },
+                        { q: 'Co je uvedeno o odpovědnosti hasiče?', options: ['Je osobně odpovědný za škodu způsobenou porušením služebních povinností', 'Nese odpovědnost vždy za každou škodu při zásahu', 'Nenese žádnou odpovědnost', 'Odpovídá pouze velitel'], correct: 0 },
+                        { q: 'Které klíčové zásady shrnutí podkladu uvádí?', options: ['Zákonnost, přiměřenost, profesionalita, bezpečnost', 'Rychlost, improvizace, autonomie, utajení', 'Formálnost, administrace, kontrola, sankce', 'Výhradně poslušnost bez vyhodnocení'], correct: 0 }
                     ]
                 },
                 {
-                    topic: 'b',
-                    q: 'Zkušební otázka (sada B)',
-                    options: [
-                        'Zkušební odpověď B1',
-                        'Zkušební odpověď B2',
-                        'Zkušební odpověď B3',
-                        'Zkušební odpověď B4'
+                    topic: '4b - Přívodní, dopravní, útočné vedení',
+                    questions: [
+                        { q: 'Jaké je správné pořadí vedení podle podkladu?', options: ['Přívodní -> dopravní -> útočné', 'Útočné -> dopravní -> přívodní', 'Dopravní -> útočné -> přívodní', 'Přívodní -> útočné -> dopravní'], correct: 0 },
+                        { q: 'K čemu slouží přívodní vedení?', options: ['K přísunu vody od zdroje k čerpadlu', 'K dopravě vody od čerpadla k rozdělovači', 'K přímému hašení na proudnici', 'K odvodu kouře z objektu'], correct: 0 },
+                        { q: 'Jaké hadice jsou u přívodního vedení uvedené?', options: ['B nebo A', 'Pouze C', 'Pouze D', 'Pouze vysokotlaké hadice 25 mm'], correct: 0 },
+                        { q: 'K čemu slouží dopravní vedení?', options: ['K dopravě vody od čerpadla blíže k místu zásahu', 'K přímému hašení v interiéru', 'K zásobování cisterny palivem', 'K ochlazování čerpadla'], correct: 0 },
+                        { q: 'Jaké hadice se používají pro útočné vedení?', options: ['C, někdy D', 'A, někdy B', 'Jen A', 'Jen B'], correct: 0 },
+                        { q: 'Co znamená zkratka TTD?', options: ['Technicko-taktická data', 'Tlaková taktická dokumentace', 'Technická transportní data', 'Taktika terénní dopravy'], correct: 0 },
+                        { q: 'Jaká obvyklá délka hadice je uvedena v TTD?', options: ['20 m', '10 m', '30 m', '50 m'], correct: 0 },
+                        { q: 'Jaký je uvedený pracovní tlak hadic?', options: ['Kolem 1,6 MPa', 'Kolem 0,2 MPa', 'Kolem 3,0 MPa', 'Kolem 5,0 MPa'], correct: 0 }
                     ]
                 },
                 {
-                    topic: 'c',
-                    q: 'Zkušební otázka (sada C)',
-                    options: [
-                        'Zkušební odpověď C1',
-                        'Zkušební odpověď C2',
-                        'Zkušební odpověď C3',
-                        'Zkušební odpověď C4'
+                    topic: '9a - Řád spojové služby',
+                    questions: [
+                        { q: 'Co zajišťuje spojová služba v jednotkách PO?', options: ['Komunikaci na místě zásahu a mezi velitelem zásahu a jednotkami', 'Pouze evidenci techniky', 'Pouze dokumentaci požárů', 'Pouze logistiku materiálu'], correct: 0 },
+                        { q: 'Jaký je v podkladu uveden základní předpis spojové služby?', options: ['Řád rádiových komunikací', 'Cvičební řád PO', 'Vodní zákon', 'Stavební zákon'], correct: 0 },
+                        { q: 'Jaká je jedna z kompetencí technika spojové služby?', options: ['Obsluhovat a udržovat spojová zařízení v provozuschopném stavu', 'Provádět statické posudky budov', 'Vést účetní agendu jednotky', 'Řídit evakuaci zdravotnického zařízení'], correct: 0 },
+                        { q: 'Jaké radiostanice jsou v podkladu uvedeny jako příklad analogových?', options: ['Motorola GP 360 a Motorola GM 360', 'MATRA TPH 900 a PEGAS Base', 'Jen ruční TPH 900', 'Pouze opakovač IDR'], correct: 0 },
+                        { q: 'K čemu slouží digitální opakovač (např. IDR)?', options: ['K pokrytí hluchých míst při radiovém spojení', 'K měření teploty zásahu', 'K filtraci kouře', 'K evidenci směn'], correct: 0 },
+                        { q: 'Jaký dokument eviduje provoz vysílacích/přijímacích relací a volací značky?', options: ['Staniční protokol rádiových služeb', 'Kniha jízd', 'Operační deník zásahu', 'Záznam o školení BOZP'], correct: 0 },
+                        { q: 'Jaké pravidlo bezpečného provozu je v podkladu uvedeno?', options: ['Používat předepsané volací značky, frekvence a postupy', 'Používat libovolné frekvence podle situace', 'Vést spojení bez dokumentace', 'Přechod mezi analogem a digitálem není potřeba'], correct: 0 }
+                    ]
+                },
+                {
+                    topic: '10a - Komunikační prostředky u HZS ČR',
+                    questions: [
+                        { q: 'Jaký digitální systém je v podkladu uveden pro zabezpečenou komunikaci?', options: ['PEGAS', 'TETRA-CZ', 'ARES', 'KOPIS-NET'], correct: 0 },
+                        { q: 'Jaká zařízení jsou uvedena v digitální části podkladu?', options: ['MATRA', 'Motorola GP 360', 'Motorola GM 360', 'IDR only'], correct: 0 },
+                        { q: 'K čemu slouží digitální rádiové spojení podle podkladu?', options: ['Ke komunikaci mezi hasiči na výjezdu, operačním střediskem, složkami IZS a dalšími subjekty', 'Pouze k interní komunikaci na stanici', 'Jen pro komunikaci s veřejností', 'Pouze při cvičení'], correct: 0 },
+                        { q: 'Jaké kanály jsou v podkladu uvedeny u analogového spojení?', options: ['K, N, I, S', 'A, B, C, D', '1, 2, 3, 4', 'P, Q, R, T'], correct: 0 },
+                        { q: 'K čemu jsou podle podkladu využívány mobilní telefony?', options: ['K dokumentaci zásahu, například fotodokumentaci', 'K řízení čerpadel', 'Jen jako záložní siréna', 'K měření hladiny vody'], correct: 0 },
+                        { q: 'Který systém je v podkladu uveden u tabletů?', options: ['GINA', 'PEGAS', 'MATRA', 'IDR'], correct: 0 }
+                    ]
+                },
+                {
+                    topic: '12b - Speciální skupiny HZS',
+                    questions: [
+                        { q: 'Které speciální skupiny jsou v podkladu výslovně uvedeny?', options: ['Potápěčské jednotky, USAR, LESAR', 'USAR, Horská služba, Letecká záchranná služba', 'Potápěči, pyrotechnici, kynologové Policie ČR', 'Jen USAR'], correct: 0 },
+                        { q: 'Na co se zaměřují potápěčské jednotky HZS?', options: ['Zásahy ve vodním prostředí a záchranu osob z vody', 'Pátrání v horském terénu', 'Hašení lesních požárů', 'Řízení evakuace obcí'], correct: 0 },
+                        { q: 'K čemu je určen USAR tým?', options: ['Vyhledávání a záchrana osob v sutinách', 'Zásahy na vodních tocích', 'Výhradně chemické havárie', 'Pouze preventivní kontrola staveb'], correct: 0 },
+                        { q: 'Při jakých událostech se USAR podle podkladu nasazuje?', options: ['Při velkých katastrofách, např. zemětřesení, výbuchy nebo zřícení budov', 'Pouze při dopravních nehodách', 'Pouze při povodních', 'Pouze při požárech rodinných domů'], correct: 0 },
+                        { q: 'Jaké prostředky jsou u USAR v podkladu uvedeny?', options: ['Kamery pro hledání osob pod troskami, vyprošťovací nářadí, psi', 'Pouze čluny a rafty', 'Pouze cisternové automobilové stříkačky', 'Pouze drony'], correct: 0 },
+                        { q: 'Na co je zaměřen LESAR?', options: ['Pátrání po pohřešovaných osobách v přírodě a hašení lesních požárů', 'Pouze městské vyhledávání v sutinách', 'Jen zásahy na vodě', 'Jen zdravotnickou pomoc'], correct: 0 },
+                        { q: 'Který zákon je v podkladu uveden u speciálních skupin?', options: ['238/2000 Sb., o Hasičském záchranném sboru České republiky', '320/2015 Sb.', '239/2000 Sb.', '254/2001 Sb.'], correct: 0 }
+                    ]
+                },
+                {
+                    topic: '17b - Povodně',
+                    questions: [
+                        { q: 'Který zákon je v podkladu uveden pro definici povodně?', options: ['254/2001 Sb. (vodní zákon)', '240/2000 Sb. (krizový zákon)', '239/2000 Sb. (o IZS)', '320/2015 Sb. (o HZS ČR)'], correct: 0 },
+                        { q: 'Co je v podkladu uvedeno jako přirozená povodeň?', options: ['Povodeň vzniklá v důsledku přírodních jevů', 'Povodeň způsobená poruchou vodního díla', 'Povodeň způsobená výhradně kanalizací', 'Povodeň vyvolaná technologickou havárií'], correct: 0 },
+                        { q: 'Jak je charakterizována přívalová povodeň?', options: ['Má extrémně rychlý nástup a vzniká lokálně z prudkých bouřek', 'Má pomalý nástup a vzniká pouze táním sněhu', 'Vzniká jen poruchou přehrady', 'Nastává pouze v zimě'], correct: 0 },
+                        { q: 'Co je zvláštní povodeň podle podkladu?', options: ['Povodeň způsobená poruchou/havárií vodního díla nebo mimořádným vypouštěním nádrže', 'Povodeň z dlouhotrvajících dešťů na velkém území', 'Povodeň z ledových bariér', 'Povodeň bez antropogenního vlivu'], correct: 0 },
+                        { q: 'Co znamená I. stupeň povodňové aktivity?', options: ['Stav bdělosti', 'Stav pohotovosti', 'Stav ohrožení', 'Nouzový stav'], correct: 0 },
+                        { q: 'Co znamená III. stupeň povodňové aktivity?', options: ['Stav ohrožení', 'Stav bdělosti', 'Stav monitoringu', 'Stav cvičení'], correct: 0 },
+                        { q: 'Jaký signál je uveden pro všeobecnou výstrahu?', options: ['Kolísavý tón 140 s', 'Nepřerušovaný tón 60 s', 'Krátký přerušovaný tón 30 s', 'Hlasová zpráva bez tónu'], correct: 0 },
+                        { q: 'Jaká technika je v podkladu uvedena pro záchranu při povodni?', options: ['Motorové čluny, rafty, v extrémních případech vrtulníky', 'Pouze cisterny', 'Pouze automobilové žebříky', 'Pouze drony'], correct: 0 },
+                        { q: 'Jaká těžká technika Záchranného útvaru HZS je v podkladu uvedena?', options: ['Obojživelné transportéry PTS-10 a vyprošťovací automobily', 'Pásové bagry armády', 'Těžké jeřáby soukromých firem', 'Mobilní mostní systémy'], correct: 0 },
+                        { q: 'Co se uvádí ve fázi likvidační a obnovy po opadnutí vody?', options: ['Sanace a hygiena, statické zabezpečení, humanitární pomoc', 'Pouze monitoring vodních toků', 'Pouze administrativní vyhodnocení', 'Pouze cvičné zásahy'], correct: 0 }
                     ]
                 }
             ];
-            const quizTopicEl = document.getElementById('quiz-topic');
+
             const quizQuestionEl = document.getElementById('quiz-question');
             const quizOptionsEl = document.getElementById('quiz-options');
             const quizFeedbackEl = document.getElementById('quiz-feedback');
+            const quizTopicLabelEl = document.getElementById('quiz-topic-label');
+            const quizStatusEl = document.getElementById('quiz-subject-status');
+            const nextBtn = document.getElementById('quiz-next');
+
+            const flatQuestions = TOPIC_QUESTIONS.flatMap(function (topicObj) {
+                return topicObj.questions.map(function (q) {
+                    return {
+                        topic: topicObj.topic,
+                        q: q.q,
+                        options: q.options,
+                        correct: q.correct
+                    };
+                });
+            });
 
             let currentQuiz = null;
+            let usedIndexes = [];
+
+            function pickRandomQuestion() {
+                if (usedIndexes.length >= flatQuestions.length) usedIndexes = [];
+
+                let idx = Math.floor(Math.random() * flatQuestions.length);
+                let guard = 0;
+                while (usedIndexes.indexOf(idx) !== -1 && guard < 500) {
+                    idx = Math.floor(Math.random() * flatQuestions.length);
+                    guard += 1;
+                }
+                usedIndexes.push(idx);
+                return flatQuestions[idx];
+            }
 
             function nextQuizQuestion() {
-                const topic = quizTopicEl.value;
-                const pool = topic === 'all'
-                    ? quizPool
-                    : quizPool.filter(function (q) { return q.topic === topic; });
-
-                if (!pool.length) {
-                    quizQuestionEl.textContent = 'Pro tuto zkušební sadu zatím není připravený obsah.';
-                    quizOptionsEl.innerHTML = '';
-                    quizFeedbackEl.textContent = '';
-                    currentQuiz = null;
-                    return;
-                }
-
-                currentQuiz = pool[Math.floor(Math.random() * pool.length)];
+                currentQuiz = pickRandomQuestion();
+                quizTopicLabelEl.textContent = 'Téma: ' + currentQuiz.topic;
                 quizQuestionEl.textContent = currentQuiz.q;
-                quizFeedbackEl.textContent = 'Demonstrační režim: odpovědi se zatím nevyhodnocují.';
+                quizFeedbackEl.textContent = '';
                 quizFeedbackEl.style.color = '#475569';
 
                 quizOptionsEl.innerHTML = currentQuiz.options.map(function (opt, idx) {
                     return '<button type="button" class="quiz-option" data-opt="' + idx + '">' + opt + '</button>';
                 }).join('');
+
+                nextBtn.innerHTML = '<i class="fa-solid fa-dice"></i> Další náhodná otázka';
+                quizStatusEl.textContent = 'Kvíz běží. Losují se náhodné otázky pouze z témat s nahraným PDF.';
             }
 
             quizOptionsEl.addEventListener('click', function (e) {
                 const btn = e.target.closest('.quiz-option');
                 if (!btn || !currentQuiz) return;
 
+                const selected = Number(btn.getAttribute('data-opt'));
                 const all = quizOptionsEl.querySelectorAll('.quiz-option');
-                all.forEach(function (item) {
+
+                all.forEach(function (item, idx) {
                     item.classList.remove('correct');
                     item.classList.remove('wrong');
+                    if (idx === currentQuiz.correct) {
+                        item.classList.add('correct');
+                    }
                 });
-                btn.classList.add('correct');
-                quizFeedbackEl.textContent = 'Zvolená zkušební odpověď: vyhodnocení doplníme po dodání podkladu.';
-                quizFeedbackEl.style.color = '#475569';
+
+                if (selected !== currentQuiz.correct) {
+                    btn.classList.add('wrong');
+                    quizFeedbackEl.textContent = 'Nesprávně. Správná odpověď je označená zeleně.';
+                    quizFeedbackEl.style.color = '#b91c1c';
+                    return;
+                }
+
+                quizFeedbackEl.textContent = 'Správně.';
+                quizFeedbackEl.style.color = '#166534';
             });
 
-            quizTopicEl.addEventListener('change', nextQuizQuestion);
-            document.getElementById('quiz-next').addEventListener('click', nextQuizQuestion);
-
-            nextQuizQuestion();
+            nextBtn.addEventListener('click', nextQuizQuestion);
         })();
     </script>
 

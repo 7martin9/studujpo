@@ -13,29 +13,57 @@
 
     <style>
         .practice-section {
-            background: var(--bg-gray);
+            --ink: #16202f;
+            --ink-soft: #4a5a72;
+            --line: #d7e0ec;
+            --surface: #ffffff;
+            --surface-soft: #f4f7fb;
+            --accent: #db2b39;
+            --accent-2: #ff7a18;
+            background:
+                radial-gradient(1200px 400px at 10% 0%, rgba(219, 43, 57, 0.11), transparent 65%),
+                radial-gradient(1000px 380px at 95% 10%, rgba(255, 122, 24, 0.12), transparent 70%),
+                var(--bg-gray);
             padding: 44px 0 100px;
         }
 
         .practice-card {
-            background: #fff;
-            border-radius: 24px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 14px 36px rgba(15, 23, 42, 0.07);
+            background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+            border-radius: 26px;
+            border: 1px solid var(--line);
+            box-shadow: 0 24px 64px rgba(15, 23, 42, 0.11);
             padding: 24px;
-            max-width: 920px;
+            max-width: 980px;
             margin: 0 auto;
         }
 
-        .practice-card h2 {
-            font-size: 1.25rem;
-            color: var(--dark);
+        .practice-header {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
             margin-bottom: 8px;
+        }
+
+        .header-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #fff;
+            display: grid;
+            place-items: center;
+            box-shadow: 0 8px 20px rgba(219, 43, 57, 0.32);
+        }
+
+        .practice-card h2 {
+            font-size: 1.3rem;
+            color: var(--ink);
+            margin: 0 0 6px;
             font-weight: 900;
         }
 
         .practice-card p {
-            color: #64748b;
+            color: var(--ink-soft);
             line-height: 1.55;
             margin-bottom: 14px;
         }
@@ -44,90 +72,307 @@
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
-            margin: 12px 0;
+            margin: 16px 0;
+        }
+
+        .subject-select {
+            min-width: 280px;
+            background: #fff;
+            color: var(--ink);
+            border: 1px solid #c8d4e3;
+            border-radius: 12px;
+            padding: 11px 14px;
+            font-weight: 800;
+            font-size: 0.88rem;
+            cursor: pointer;
         }
 
         .practice-btn {
-            background: #0f172a;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
             color: #fff;
-            border: 1px solid #0f172a;
+            border: 1px solid transparent;
             border-radius: 12px;
             padding: 10px 14px;
             font-weight: 800;
-            font-size: 0.86rem;
+            font-size: 0.88rem;
             cursor: pointer;
-            transition: 0.2s;
+            transition: transform 0.16s ease, box-shadow 0.16s ease;
         }
 
-        .practice-btn:hover { transform: translateY(-1px); }
-        .practice-btn.alt { background: #fff; color: #0f172a; border-color: #cbd5e1; }
-        .practice-btn.warn { background: #b91c1c; border-color: #b91c1c; }
+        .practice-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 20px rgba(219, 43, 57, 0.25);
+        }
+
+        .practice-btn.alt {
+            background: #fff;
+            color: var(--ink);
+            border-color: #c8d4e3;
+        }
 
         .practice-panel {
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            background: #f8fafc;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: var(--surface-soft);
             padding: 14px;
+            min-height: 220px;
         }
 
-        .timer {
-            font-size: 1.35rem;
-            color: var(--dark);
-            font-weight: 900;
-            margin-bottom: 8px;
+        .panel-placeholder {
+            min-height: 190px;
+            border: 2px dashed #c7d5e6;
+            border-radius: 14px;
+            display: grid;
+            place-content: center;
+            gap: 8px;
+            text-align: center;
+            color: #5f6f88;
+            padding: 20px;
         }
+
+        .panel-placeholder i {
+            font-size: 1.25rem;
+            color: #6f84a3;
+        }
+
+        .panel-content { display: none; }
 
         .prompt {
-            color: #0f172a;
-            font-weight: 800;
+            color: var(--ink);
+            font-weight: 900;
             margin-bottom: 8px;
+            font-size: 1.08rem;
         }
 
-        .checklist {
+        .section-heading {
+            margin-top: 14px;
+            color: var(--ink);
+            font-size: 1rem;
+            font-weight: 900;
+        }
+
+        .quiz-grid {
             display: grid;
-            gap: 8px;
+            gap: 12px;
             margin-top: 10px;
         }
 
-        .checklist label {
+        .quiz-block {
+            background: var(--surface);
+            border: 1px solid #d4deea;
+            border-radius: 12px;
+            padding: 12px;
+        }
+
+        .quiz-block p {
+            margin: 0 0 8px;
+            color: var(--ink);
+            font-weight: 800;
+            line-height: 1.45;
+        }
+
+        .quiz-options { display: grid; gap: 8px; }
+
+        .quiz-options label {
             display: flex;
             gap: 8px;
-            align-items: center;
+            align-items: flex-start;
+            color: #2f3f58;
             font-weight: 600;
-            color: #334155;
+            line-height: 1.45;
         }
 
-        .history-list {
+        .quiz-options input[type="radio"] { margin-top: 2px; }
+
+        .result-box {
             margin-top: 12px;
-            display: grid;
-            gap: 8px;
+            border: 1px solid #d4deea;
+            background: #fff;
+            border-radius: 12px;
+            padding: 11px 12px;
+            font-weight: 700;
+            color: #344861;
         }
 
-        .history-item {
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            padding: 10px;
+        .table-task {
+            margin-top: 12px;
+            border: 1px solid #d4deea;
+            border-radius: 12px;
             background: #fff;
-            font-size: 0.9rem;
-            color: #334155;
+            padding: 12px;
+            display: none;
+        }
+
+        .table-task h4 {
+            margin: 0 0 8px;
+            color: var(--ink);
+            font-size: .95rem;
+            font-weight: 900;
+        }
+
+        .table-task table { width: 100%; border-collapse: collapse; }
+
+        .table-task th,
+        .table-task td {
+            border: 1px solid #d4deea;
+            padding: 8px;
+            text-align: left;
+            font-size: .88rem;
+        }
+
+        .table-task input {
+            width: 100%;
+            border: 1px solid #c3d1e2;
+            border-radius: 8px;
+            padding: 6px 8px;
+            font: inherit;
+            font-size: .86rem;
         }
 
         .back-link {
             display: inline-flex;
             margin-bottom: 14px;
             text-decoration: none;
-            color: #be123c;
+            color: var(--accent);
             font-weight: 800;
         }
 
-        [data-theme="dark"] .practice-section { background: #0f172a; }
-        [data-theme="dark"] .practice-card,
-        [data-theme="dark"] .history-item { background: #1e293b; border-color: #334155; color: #e2e8f0; }
-        [data-theme="dark"] .practice-card p,
-        [data-theme="dark"] .checklist label { color: #94a3b8; }
-        [data-theme="dark"] .practice-panel { background: #0f172a; border-color: #334155; }
-        [data-theme="dark"] .timer,
-        [data-theme="dark"] .prompt { color: #e2e8f0; }
+        .final-evaluate-wrap {
+            margin-top: 14px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .result-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 20, 36, 0.62);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .result-modal.open { display: flex; }
+
+        .result-modal-box {
+            width: min(980px, 100%);
+            max-height: 84vh;
+            overflow: auto;
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid #d4deea;
+            box-shadow: 0 20px 48px rgba(15, 23, 42, 0.28);
+            padding: 16px;
+        }
+
+        .result-modal-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .result-modal-head h3 {
+            margin: 0;
+            color: var(--ink);
+            font-size: 1.05rem;
+            font-weight: 900;
+        }
+
+        .modal-close {
+            border: 1px solid #c8d4e3;
+            background: #fff;
+            color: #2f3f58;
+            border-radius: 10px;
+            width: 34px;
+            height: 34px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        .result-summary {
+            margin: 4px 0 10px;
+            color: #2f3f58;
+            font-weight: 700;
+        }
+
+        .result-table-wrap {
+            border: 1px solid #d4deea;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: .86rem;
+        }
+
+        .result-table th,
+        .result-table td {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .result-table th {
+            background: #f8fbff;
+            color: #233248;
+            font-weight: 900;
+        }
+
+        .result-table .ok { color: #166534; font-weight: 800; }
+        .result-table .bad { color: #b91c1c; font-weight: 800; }
+
+        @media (max-width: 700px) {
+            .practice-card { padding: 18px; border-radius: 20px; }
+            .subject-select { min-width: 100%; }
+            .practice-btn { width: 100%; justify-content: center; }
+            .practice-controls { display: grid; }
+            .final-evaluate-wrap { justify-content: stretch; }
+        }
+
+        [data-theme="dark"] .practice-section {
+            --ink: #e5edf8;
+            --ink-soft: #a8b7ca;
+            --line: #334155;
+            --surface: #1b2738;
+            --surface-soft: #0f172a;
+        }
+
+        [data-theme="dark"] .practice-card {
+            background: linear-gradient(180deg, #182233 0%, #131d2e 100%);
+            color: var(--ink);
+        }
+
+        [data-theme="dark"] .subject-select,
+        [data-theme="dark"] .quiz-block,
+        [data-theme="dark"] .result-box,
+        [data-theme="dark"] .table-task,
+        [data-theme="dark"] .table-task input {
+            background: #0f172a;
+            border-color: #334155;
+            color: var(--ink);
+        }
+
+        [data-theme="dark"] .result-modal-box,
+        [data-theme="dark"] .result-table-wrap,
+        [data-theme="dark"] .result-table th,
+        [data-theme="dark"] .result-table td,
+        [data-theme="dark"] .modal-close {
+            background: #0f172a;
+            border-color: #334155;
+            color: #e5edf8;
+        }
+
+        [data-theme="dark"] .panel-placeholder {
+            border-color: #334155;
+            color: #9fb0c8;
+        }
     </style>
 </head>
 <body>
@@ -180,7 +425,7 @@
     <header class="section-hero">
         <div class="container hero-content">
             <h1 style="margin-top: 40px;">Zkouška <span class="accent-glow">nanečisto</span></h1>
-            <p style="color: rgba(255,255,255,0.8);">Demonstrační režim: obecná ústní otázka, časový limit a checklist.</p>
+            <p style="color: rgba(255,255,255,0.8);">Trénink ústního zkoušení podle vybraného předmětu.</p>
         </div>
     </header>
 
@@ -188,26 +433,124 @@
         <div class="container">
             <section class="practice-card" aria-labelledby="mock-title">
                 <a class="back-link" href="/procvicovani"><i class="fa-solid fa-arrow-left"></i>&nbsp;Zpět na rozcestník</a>
-                <h2 id="mock-title"><i class="fa-solid fa-stopwatch"></i> Trénink ústní zkoušky</h2>
-                <p>Tato stránka je připravený návrh. Zatím používá jen obecné texty bez konkrétních podkladů.</p>
+                <div class="practice-header">
+                    <div class="header-icon"><i class="fa-solid fa-stopwatch"></i></div>
+                    <div>
+                        <h2 id="mock-title">Trénink ústní zkoušky</h2>
+                        <p id="mock-subject-status">Vyber předmět. MU otázky vycházejí z podkladu rocnikova_zks_MU.pdf.</p>
+                    </div>
+                </div>
 
                 <div class="practice-controls">
-                    <button class="practice-btn" id="mock-generate">Zobrazit zkušební otázku</button>
-                    <button class="practice-btn alt" id="mock-start">Spustit časomíru</button>
-                    <button class="practice-btn alt" id="mock-skip">Ukončit časoměru</button>
-                    <button class="practice-btn warn" id="mock-save">Uložit zkušební zápis</button>
+                    <select id="mock-subject" class="subject-select" aria-label="Vyber předmět">
+                        <option value="mu">Mimořádné události (MU)</option>
+                        <option value="pop">Požární prevence a zjišťování příčin požáru (PoP)</option>
+                        <option value="praxe">Praxe</option>
+                        <option value="zp">Zdravotní příprava (ZP)</option>
+                    </select>
+                    <button class="practice-btn" id="mock-generate">
+                        <i class="fa-solid fa-dice"></i> Vylosovat otázku
+                    </button>
                 </div>
 
-                <div class="practice-panel">
-                    <div class="timer" id="mock-timer">08:00</div>
-                    <div class="prompt" id="mock-question">Nejdříve zobrazte zkušební otázku.</div>
-                    <div class="checklist" id="mock-checklist"></div>
-                </div>
+                <div class="practice-panel" id="practice-panel">
+                    <div class="panel-placeholder">
+                        <i class="fa-solid fa-arrow-pointer"></i>
+                        <p>Pro zahájení tréninku si vyber předmět a nech si vylosovat otázku.</p>
+                    </div>
 
-                <div class="history-list" id="mock-history"></div>
+                    <div class="panel-content">
+                        <div class="prompt" id="mock-question"></div>
+                        <h3 class="section-heading">Okruh</h3>
+                        <div class="quiz-grid" id="mock-quiz-main"></div>
+                        <h3 class="section-heading">Charakteristiky a dopady</h3>
+                        <div class="quiz-grid" id="mock-quiz-impact"></div>
+                        <div class="table-task" id="mock-table-task">
+                            <h4>Cvičné doplnění tabulky (Kategorie JPO)</h4>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>JPO</th>
+                                        <th>Čas výjezdu</th>
+                                        <th>Druh jednotky</th>
+                                        <th>Působnost</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>JPO I</td>
+                                        <td><input type="text" placeholder="doplň"></td>
+                                        <td><input type="text" placeholder="doplň"></td>
+                                        <td><input type="text" placeholder="doplň"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>JPO II</td>
+                                        <td><input type="text" placeholder="doplň"></td>
+                                        <td><input type="text" placeholder="doplň"></td>
+                                        <td><input type="text" placeholder="doplň"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>JPO III</td>
+                                        <td><input type="text" placeholder="doplň"></td>
+                                        <td><input type="text" placeholder="doplň"></td>
+                                        <td><input type="text" placeholder="doplň"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>JPO IV</td>
+                                        <td><input type="text" placeholder="doplň"></td>
+                                        <td><input type="text" placeholder="doplň"></td>
+                                        <td><input type="text" placeholder="doplň"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>JPO V</td>
+                                        <td><input type="text" placeholder="doplň"></td>
+                                        <td><input type="text" placeholder="doplň"></td>
+                                        <td><input type="text" placeholder="doplň"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>JPO VI</td>
+                                        <td><input type="text" placeholder="doplň"></td>
+                                        <td><input type="text" placeholder="doplň"></td>
+                                        <td><input type="text" placeholder="doplň"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="result-box" id="mock-result">Vyhodnocení se zobrazí po odpovědi na všechny podotázky.</div>
+                        <div class="final-evaluate-wrap">
+                            <button class="practice-btn" id="mock-evaluate">
+                                <i class="fa-solid fa-check"></i> Vyhodnotit odpovědi
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
     </main>
+
+    <div class="result-modal" id="mock-result-modal" aria-hidden="true">
+        <div class="result-modal-box" role="dialog" aria-modal="true" aria-labelledby="result-modal-title">
+            <div class="result-modal-head">
+                <h3 id="result-modal-title">Vyhodnocení testu</h3>
+                <button class="modal-close" id="mock-modal-close" aria-label="Zavřít vyhodnocení">×</button>
+            </div>
+            <p class="result-summary" id="mock-result-summary"></p>
+            <div class="result-table-wrap">
+                <table class="result-table" id="mock-result-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Otázka</th>
+                            <th>Tvoje odpověď</th>
+                            <th>Správně</th>
+                            <th>Stav</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
     <footer class="pro-footer">
         <div class="container footer-content">
@@ -238,110 +581,310 @@
 
     <script>
         (function () {
-            const CHECK_ITEMS = [
-                'Úvod odpovědi',
-                'Hlavní body odpovědi',
-                'Stručné shrnutí odpovědi',
-                'Jasná formulace',
-                'Klidný projev'
-            ];
+            const QUESTIONS_PER_DRAW = 6;
+            const SUBJECT_LABEL = { mu: 'MU', pop: 'PoP', praxe: 'Praxe', zp: 'ZP' };
 
-            const demoQuestions = [
-                'Zkušební otázka 1',
-                'Zkušební otázka 2',
-                'Zkušební otázka 3',
-                'Zkušební otázka 4'
-            ];
-            const mockHistory = [];
-            const mockTimerEl = document.getElementById('mock-timer');
+            const SUBJECT_DATA = {
+                mu: {
+                    enabled: true,
+                    questions: [
+                        {
+                            title: 'Dělení MU',
+                            mainQuiz: [
+                                { q: 'Která odpověď popisuje mimořádnou událost?', options: ['Mimořádná událost je škodlivé působení sil a jevů vyvolaných činností člověka, přírodními vlivy, a také havárie, které ohrožují život, zdraví, majetek nebo životní prostředí a vyžadují provedení záchranných a likvidačních prací', 'Mimořádná událost je pouze válečný konflikt', 'Mimořádná událost je pouze pád vesmírného tělesa', 'Mimořádná událost je pouze narušení ekonomiky'], correct: 0 },
+                                { q: 'Co podle podkladu souvisí s nárůstem typů MU?', options: ['Vyvíjené technologie a infrastruktury', 'Pouze přírodní cykly', 'Pouze kosmické jevy', 'Pouze změna legislativy'], correct: 0 },
+                                { q: 'Naturogenní MU jsou v podkladu definovány jako:', options: ['Přírodní', 'Ekonomické', 'Psychologické', 'Výhradně technologické'], correct: 0 },
+                                { q: 'Který příklad patří mezi biotické MU?', options: ['Nákaza osob a zvířat', 'Lavina', 'Válečný konflikt', 'Narušení ekonomiky'], correct: 0 },
+                                { q: 'Který příklad patří mezi abiotické MU?', options: ['Sucho', 'Nákaza zvířat', 'Narušení ekonomiky', 'Válečný konflikt'], correct: 0 },
+                                { q: 'Který příklad patří mezi kosmické MU?', options: ['Pád vesmírného tělesa', 'Dopravní havárie', 'Občanské nepokoje', 'Degradace půdy'], correct: 0 },
+                                { q: 'Antropogenní MU jsou v podkladu popsány jako:', options: ['Způsobené člověkem', 'Výhradně přírodní', 'Výhradně biologické', 'Výhradně kosmické'], correct: 0 },
+                                { q: 'Která možnost je technogenní MU?', options: ['Havárie při dopravě a skladování chemických materiálů', 'Pád vesmírného tělesa', 'Nákaza osob', 'Válečný konflikt'], correct: 0 },
+                                { q: 'Sociogenní interní MU jsou podle podkladu:', options: ['Vnitrostátní společenské krize, narušení veřejného pořádku, občanské nepokoje', 'Válečný konflikt', 'Řícení skal', 'Narušení ekonomiky'], correct: 0 },
+                                { q: 'Sociogenní externí MU jsou podle podkladu:', options: ['Válečný konflikt', 'Občanské nepokoje', 'Nákaza zvířat', 'Laviny'], correct: 0 },
+                                { q: 'Která možnost patří mezi agrogenní MU?', options: ['Znehodnocení, degradace půdy', 'Pád vesmírného tělesa', 'Radiační havárie', 'Nákaza osob'], correct: 0 },
+                                { q: 'Která možnost patří mezi ekonomické MU?', options: ['Narušení ekonomiky', 'Vichřice', 'Mutace organismů', 'Nákaza zvířat'], correct: 0 }
+                            ],
+                            impactQuiz: [
+                                { q: 'Co MU podle podkladu ohrožuje?', options: ['Život, zdraví, majetek nebo životní prostředí', 'Pouze ekonomiku', 'Pouze veřejný pořádek', 'Pouze půdu'], correct: 0 },
+                                { q: 'Co je u MU podle podkladu důležité znát?', options: ['Příčinu, četnost výskytu, místo vzniku, očekávané velikosti, dobu trvání, povahu a velikost dopadů', 'Pouze název MU', 'Pouze místo vzniku', 'Pouze finanční škodu'], correct: 0 },
+                                { q: 'Jak podklad popisuje dopady MU?', options: ['Mnohooborové dopady s různou povahou změn', 'Jen fyzikální dopady', 'Jen psychologické dopady', 'Dopady bez škod'], correct: 0 },
+                                { q: 'Která oblast je uvedena mezi fyzikálními dopady?', options: ['Mechanická, elektrická, optická, magnetická, elektromagnetická, akustická, tepelná, seismická', 'Pouze biologická', 'Pouze chemická', 'Pouze sociální'], correct: 0 },
+                                { q: 'Které pojmy jsou uvedeny u chemických dopadů?', options: ['pH, koncentrace roztoků, oxidační či redukční vlastnosti', 'Změna klimatu a ozónové díry', 'Mutace a náhlé nemoci', 'Šikana a xenofobie'], correct: 0 },
+                                { q: 'Co je uvedeno u biologických dopadů?', options: ['Proměny v živých organismech okamžitě nebo s časovým zpožděním', 'Pouze mechanické jevy', 'Pouze elektromagnetické jevy', 'Pouze ekonomické jevy'], correct: 0 },
+                                { q: 'Co je uvedeno mezi strukturálními dopady?', options: ['Změny klimatu, výkyvy počasí, indukovaná zemětřesení, ozónové díry, oteplování planety', 'Pouze mutace', 'Pouze pH roztoků', 'Pouze migrace'], correct: 0 },
+                                { q: 'Co je uvedeno mezi psychologickými dopady?', options: ['Šikana, pocity odcizení, násilí, netolerance, xenofobie, terorismus, migrace', 'Laviny a vichřice', 'Nákaza zvířat', 'Oxidační vlastnosti'], correct: 0 }
+                            ]
+                        },
+                        {
+                            title: 'Právní předpisy v oblasti PO',
+                            mainQuiz: [
+                                { q: 'Který předpis je v podkladu uveden jako ústavní zákon o bezpečnosti?', options: ['110/1998', '240/2000', '239/2000', '133/1985'], correct: 0 },
+                                { q: 'Který předpis je v podkladu uveden jako kompetenční zákon?', options: ['2/1969', '110/1998', '239/2000', '241/2000'], correct: 0 },
+                                { q: 'Který zákon je v podkladu uveden jako zákon o krizovém řízení?', options: ['240/2000', '239/2000', '266/2025', '222/1999'], correct: 0 },
+                                { q: 'Který zákon je v podkladu uveden jako zákon o IZS?', options: ['239/2000', '240/2000', '320/2015', '111/1994'], correct: 0 },
+                                { q: 'Který zákon je v podkladu uveden jako zákon o zajištění obrany ČR?', options: ['222/1999', '241/2000', '266/2025', '198/2002'], correct: 0 },
+                                { q: 'Který zákon je v podkladu uveden jako hospodářské opatření pro krizové stavy?', options: ['241/2000', '222/1999', '350/2011', '224/2015'], correct: 0 },
+                                { q: 'Který zákon je v podkladu uveden jako zákon o kritické infrastruktuře?', options: ['266/2025', '241/2000', '258/2000', '254/2001'], correct: 0 },
+                                { q: 'Který předpis je v podkladu uveden jako zákon o požární ochraně?', options: ['133/1985', '320/2015', '273/2008', '374/2011'], correct: 0 },
+                                { q: 'Který předpis je v podkladu uveden jako vodní zákon?', options: ['254/2001', '258/2000', '166/1999', '326/2004'], correct: 0 },
+                                { q: 'Který předpis je v podkladu uveden jako zákon o prevenci havárií chemickými látkami?', options: ['224/2015', '350/2011', '263/2016', '12/2002'], correct: 0 },
+                                { q: 'Který předpis je v podkladu uveden jako atomový zákon?', options: ['263/2016', '258/2000', '166/1999', '111/1994'], correct: 0 },
+                                { q: 'Která skupina je uvedena jako podzákonné právní předpisy?', options: ['Nařízení vlády, vyhlášky ministerstev, nařízení krajů', 'Pouze ústavní zákony', 'Pouze zákony Parlamentu', 'Pouze mezinárodní smlouvy'], correct: 0 }
+                            ],
+                            impactQuiz: [
+                                { q: 'Která instituce podle podkladu vyhlašuje stav ohrožení státu?', options: ['Parlament na návrh vlády', 'Vláda', 'Hejtman', 'Prezident bez návrhu vlády'], correct: 0 },
+                                { q: 'Který předpis je uveden mezi zákony zasahujících složek?', options: ['320/2015 - o HZS', '224/2015 - o prevenci havárií', '254/2001 - vodní zákon', '326/2004 - o rostlinolékařské péči'], correct: 0 },
+                                { q: 'Který předpis je uveden mezi zákony zasahujících složek?', options: ['273/2008 - o PČR', '133/1985 - o požární ochraně', '111/1994 - o silniční dopravě', '258/2000 - o ochraně veřejného zdraví'], correct: 0 },
+                                { q: 'Která vyhláška je uvedena o některých podrobnostech zabezpečení IZS?', options: ['328/2001 Sb.', '35/2007 Sb.', '149/2025 Sb.', '553/1991 Sb.'], correct: 0 },
+                                { q: 'Která vyhláška je uvedena o technických podmínkách požární techniky?', options: ['35/2007 Sb.', '328/2001 Sb.', '149/2025 Sb.', '374/2011 Sb.'], correct: 0 },
+                                { q: 'Co je v podkladu uvedeno jako inspirace pro většinu demokratických ústav?', options: ['Deklarace práv člověka a občana z období francouzské revoluce (26. 8. 1789)', 'Charta OSN', 'Římské právo', 'Atlantic Charter'], correct: 0 },
+                                { q: 'Které dokumenty jsou v podkladu uvedeny v ústavním pořádku?', options: ['Ústava ČR 1/1993, LZPS, 110/1998', 'Pouze Ústava ČR', 'Pouze LZPS', 'Pouze 110/1998'], correct: 0 }
+                            ]
+                        },
+                        {
+                            title: 'Krizové stavy',
+                            mainQuiz: [
+                                { q: 'Kdo podle podkladu vyhlašuje stav nebezpečí?', options: ['Hejtman (primátor hl. m. Prahy)', 'Vláda', 'Parlament', 'Prezident'], correct: 0 },
+                                { q: 'Kdo podle podkladu vyhlašuje nouzový stav?', options: ['Vláda', 'Hejtman', 'Parlament', 'Prezident'], correct: 0 },
+                                { q: 'Kdo podle podkladu vyhlašuje stav ohrožení státu?', options: ['Parlament na návrh vlády', 'Vláda', 'Hejtman', 'Ministr vnitra'], correct: 0 },
+                                { q: 'Kdo podle podkladu vyhlašuje válečný stav?', options: ['Parlament', 'Vláda', 'Hejtman', 'Poslanecká sněmovna'], correct: 0 },
+                                { q: 'Jaká je časová účinnost stavu nebezpečí?', options: ['Nejdéle 30 dnů; prodloužení jen se souhlasem vlády', 'Bez omezení', 'Nejdéle 7 dnů bez prodloužení', 'Nejdéle 60 dnů'], correct: 0 },
+                                { q: 'Jaká je časová účinnost nouzového stavu?', options: ['Nejdéle 30 dnů; prodloužení po předchozím souhlasu Poslanecké sněmovny', 'Bez omezení', 'Nejdéle 7 dnů', 'Nejdéle 60 dnů bez souhlasu'], correct: 0 },
+                                { q: 'Které stavy mají v podkladu uvedenu časovou účinnost bez omezení?', options: ['Stav ohrožení státu a válečný stav', 'Stav nebezpečí a nouzový stav', 'Pouze nouzový stav', 'Pouze stav nebezpečí'], correct: 0 },
+                                { q: 'Kdy lze podle podkladu vyhlásit stav nebezpečí?', options: ['Při ohrožení života, zdraví, majetku, životního prostředí, pokud ohrožení nedosahuje značného rozsahu a nelze je odvrátit běžnou činností', 'Při napadení ČR', 'Při bezprostředním ohrožení svrchovanosti státu', 'Při každé havárii bez ohledu na rozsah'], correct: 0 },
+                                { q: 'Kdy je podle podkladu důvod vyhlášení nouzového stavu?', options: ['Živelní pohromy, ekologické nebo průmyslové havárie, nehody nebo jiné nebezpečí ve značném rozsahu', 'Pouze válečné ohrožení', 'Pouze lokální narušení pořádku', 'Pouze dopravní nehody'], correct: 0 },
+                                { q: 'Kdy je podle podkladu důvod vyhlášení stavu ohrožení státu?', options: ['Je-li bezprostředně ohrožena svrchovanost, územní celistvost nebo demokratické základy státu', 'Pouze při průmyslové havárii', 'Pouze při živelných pohromách', 'Při každém výpadku infrastruktury'], correct: 0 },
+                                { q: 'Kdy je podle podkladu důvod vyhlášení válečného stavu?', options: ['Je-li ČR napadena nebo je-li třeba plnit mezinárodní smluvní závazky o společné obraně proti napadení', 'Při každé ekologické havárii', 'Při každém narušení pořádku', 'Při stavu nebezpečí'], correct: 0 }
+                            ],
+                            impactQuiz: [
+                                { q: 'Jaký územní rozsah má stav nebezpečí?', options: ['Celý kraj nebo jeho část', 'Vždy celý stát', 'Pouze hlavní město', 'Pouze jedna obec'], correct: 0 },
+                                { q: 'Jaký územní rozsah má nouzový stav?', options: ['Celý stát nebo jeho část', 'Celý kraj nebo jeho část', 'Vždy jen celý stát', 'Pouze oblast kritické infrastruktury'], correct: 0 },
+                                { q: 'Jaký územní rozsah má stav ohrožení státu?', options: ['Celý stát nebo jeho část', 'Celý kraj', 'Pouze hranice státu', 'Pouze hlavní město'], correct: 0 },
+                                { q: 'Jaký územní rozsah má válečný stav?', options: ['Celý stát', 'Celý kraj nebo jeho část', 'Pouze část státu', 'Pouze okolí vojenských objektů'], correct: 0 },
+                                { q: 'Který stav vyžaduje pro prodloužení souhlas vlády?', options: ['Stav nebezpečí', 'Nouzový stav', 'Stav ohrožení státu', 'Válečný stav'], correct: 0 },
+                                { q: 'Který stav vyžaduje pro prodloužení předchozí souhlas Poslanecké sněmovny?', options: ['Nouzový stav', 'Stav nebezpečí', 'Stav ohrožení státu', 'Válečný stav'], correct: 0 }
+                            ]
+                        },
+                        {
+                            title: 'Kategorie JPO',
+                            mainQuiz: [
+                                { q: 'Jaký čas výjezdu je uveden pro JPO I?', options: ['2', '5', '10', '15'], correct: 0 },
+                                { q: 'Jaký čas výjezdu je uveden pro JPO II?', options: ['5', '2', '10', '15'], correct: 0 },
+                                { q: 'Jaký čas výjezdu je uveden pro JPO III?', options: ['10', '2', '5', '15'], correct: 0 },
+                                { q: 'Jaký čas výjezdu je uveden pro JPO IV?', options: ['2', '5', '10', '15'], correct: 0 },
+                                { q: 'Jaký čas výjezdu je uveden pro JPO V?', options: ['10', '2', '5', '15'], correct: 0 },
+                                { q: 'Jaký čas výjezdu je uveden pro JPO VI?', options: ['10', '2', '5', '15'], correct: 0 },
+                                { q: 'Jaký druh jednotky je uveden pro JPO I?', options: ['HZS kraje', 'JSDH obce', 'HZS podniku', 'JSDH podniku'], correct: 0 },
+                                { q: 'Jaký druh jednotky je uveden pro JPO II?', options: ['JSDH obce', 'HZS kraje', 'HZS podniku', 'JSDH podniku'], correct: 0 },
+                                { q: 'Jaký druh jednotky je uveden pro JPO IV?', options: ['HZS podniku', 'HZS kraje', 'JSDH obce', 'JSDH podniku'], correct: 0 },
+                                { q: 'Jaký druh jednotky je uveden pro JPO VI?', options: ['JSDH podniku', 'HZS podniku', 'HZS kraje', 'JSDH obce'], correct: 0 },
+                                { q: 'Jaká působnost je uvedena pro JPO I?', options: ['územní', 'místní', 'krajská', 'celostátní'], correct: 0 },
+                                { q: 'Jaká působnost je uvedena pro JPO IV?', options: ['místní', 'územní', 'krajská', 'celostátní'], correct: 0 }
+                            ],
+                            impactQuiz: [
+                                { q: 'Které kategorie mají čas výjezdu 10?', options: ['JPO III, JPO V, JPO VI', 'JPO I, JPO II, JPO IV', 'JPO II, JPO III, JPO IV', 'JPO I, JPO V, JPO VI'], correct: 0 },
+                                { q: 'Které kategorie mají působnost územní?', options: ['JPO I, JPO II, JPO III', 'JPO IV, JPO V, JPO VI', 'JPO I, JPO IV, JPO VI', 'JPO II, JPO V, JPO VI'], correct: 0 },
+                                { q: 'Které kategorie mají působnost místní?', options: ['JPO IV, JPO V, JPO VI', 'JPO I, JPO II, JPO III', 'JPO I, JPO IV, JPO V', 'JPO II, JPO III, JPO VI'], correct: 0 },
+                                { q: 'Které kategorie mají druh jednotky JSDH obce?', options: ['JPO II, JPO III, JPO V', 'JPO I, JPO II, JPO III', 'JPO IV, JPO V, JPO VI', 'JPO I, JPO IV, JPO VI'], correct: 0 },
+                                { q: 'Které kategorie mají čas výjezdu 2?', options: ['JPO I a JPO IV', 'JPO II a JPO III', 'JPO V a JPO VI', 'JPO I a JPO VI'], correct: 0 }
+                            ]
+                        }
+                    ]
+                },
+                pop: { enabled: false, questions: [] },
+                praxe: { enabled: false, questions: [] },
+                zp: { enabled: false, questions: [] }
+            };
+
+            const mockSubjectEl = document.getElementById('mock-subject');
+            const mockSubjectStatusEl = document.getElementById('mock-subject-status');
             const mockQuestionEl = document.getElementById('mock-question');
-            const mockChecklistEl = document.getElementById('mock-checklist');
-            const mockHistoryEl = document.getElementById('mock-history');
+            const mockMainQuizEl = document.getElementById('mock-quiz-main');
+            const mockImpactQuizEl = document.getElementById('mock-quiz-impact');
+            const mockTableTaskEl = document.getElementById('mock-table-task');
+            const mockResultEl = document.getElementById('mock-result');
+            const mockPlaceholderEl = document.querySelector('.panel-placeholder');
+            const mockContentEl = document.querySelector('.panel-content');
+            const modalEl = document.getElementById('mock-result-modal');
+            const modalCloseEl = document.getElementById('mock-modal-close');
+            const modalSummaryEl = document.getElementById('mock-result-summary');
+            const modalBodyEl = document.querySelector('#mock-result-table tbody');
 
-            let mockRemaining = 8 * 60;
-            let mockInterval = null;
-            let currentMockQuestion = '';
+            let currentMockQuestion = null;
+            let currentRenderedQuiz = { mainQuiz: [], impactQuiz: [] };
 
-            function formatTime(sec) {
-                const m = Math.floor(sec / 60);
-                const s = sec % 60;
-                return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+            function escapeHtml(value) {
+                return String(value)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;');
             }
 
-            function renderChecklist() {
-                mockChecklistEl.innerHTML = CHECK_ITEMS.map(function (item, idx) {
-                    return '<label><input type="checkbox" data-ck="' + idx + '"> ' + item + '</label>';
-                }).join('');
+            function shuffle(items) {
+                const out = items.slice();
+                for (let i = out.length - 1; i > 0; i -= 1) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    const tmp = out[i];
+                    out[i] = out[j];
+                    out[j] = tmp;
+                }
+                return out;
             }
 
-            function renderMockHistory() {
-                const items = mockHistory.slice(0, 8);
-                if (!items.length) {
-                    mockHistoryEl.innerHTML = '<div class="history-item">Zatím bez zkušebního zápisu.</div>';
+            function pickQuestionsByLimit(questionSet, limit) {
+                const all = [];
+                (questionSet.mainQuiz || []).forEach(function (q) { all.push({ section: 'main', q: q }); });
+                (questionSet.impactQuiz || []).forEach(function (q) { all.push({ section: 'impact', q: q }); });
+
+                const selected = shuffle(all).slice(0, Math.min(limit, all.length));
+                return {
+                    mainQuiz: selected.filter(function (i) { return i.section === 'main'; }).map(function (i) { return i.q; }),
+                    impactQuiz: selected.filter(function (i) { return i.section === 'impact'; }).map(function (i) { return i.q; })
+                };
+            }
+
+            function resetQuestionState(text) {
+                mockQuestionEl.textContent = text;
+                mockMainQuizEl.innerHTML = '';
+                mockImpactQuizEl.innerHTML = '';
+                mockTableTaskEl.style.display = 'none';
+                mockResultEl.textContent = 'Vyhodnocení se zobrazí po odpovědi na všechny podotázky.';
+                mockPlaceholderEl.style.display = 'grid';
+                mockContentEl.style.display = 'none';
+                currentMockQuestion = null;
+                currentRenderedQuiz = { mainQuiz: [], impactQuiz: [] };
+            }
+
+            function renderQuizSection(target, questions, sectionKey) {
+                if (!questions.length) {
+                    target.innerHTML = '<div class="quiz-block"><p>Pro tento pokus nebyla z této části náhodně vybrána otázka.</p></div>';
                     return;
                 }
-                mockHistoryEl.innerHTML = items.map(function (h) {
-                    return '<div class="history-item"><strong>' + h.question + '</strong><br>' + h.date + ' • Checklist: ' + h.done + '/5 • Cas: ' + h.time + '</div>';
+
+                target.innerHTML = questions.map(function (item, idx) {
+                    const options = item.options.map(function (opt, optIdx) {
+                        const id = sectionKey + '-' + idx + '-opt-' + optIdx;
+                        return '<label for="' + id + '"><input type="radio" id="' + id + '" name="' + sectionKey + '-' + idx + '" value="' + optIdx + '">' + escapeHtml(opt) + '</label>';
+                    }).join('');
+                    return '<div class="quiz-block"><p>' + (idx + 1) + '. ' + escapeHtml(item.q) + '</p><div class="quiz-options">' + options + '</div></div>';
                 }).join('');
+            }
+
+            function updateSubjectStatus() {
+                const selected = mockSubjectEl.value;
+                if (SUBJECT_DATA[selected].enabled) {
+                    mockSubjectStatusEl.textContent = 'Předmět ' + SUBJECT_LABEL[selected] + ' je aktivní. V každém pokusu se losuje náhodný set 6 otázek.';
+                } else {
+                    mockSubjectStatusEl.textContent = 'Předmět ' + SUBJECT_LABEL[selected] + ' zatím není aktivní.';
+                }
+                resetQuestionState('Nejdříve vylosujte otázku.');
+            }
+
+            function openResultModal() {
+                modalEl.classList.add('open');
+                modalEl.setAttribute('aria-hidden', 'false');
+            }
+
+            function closeResultModal() {
+                modalEl.classList.remove('open');
+                modalEl.setAttribute('aria-hidden', 'true');
             }
 
             document.getElementById('mock-generate').addEventListener('click', function () {
-                currentMockQuestion = demoQuestions[Math.floor(Math.random() * demoQuestions.length)];
-                mockQuestionEl.textContent = currentMockQuestion;
-                mockRemaining = 8 * 60;
-                mockTimerEl.textContent = formatTime(mockRemaining);
-                if (mockInterval) {
-                    clearInterval(mockInterval);
-                    mockInterval = null;
+                const selected = mockSubjectEl.value;
+                const subject = SUBJECT_DATA[selected];
+
+                if (!subject.enabled) {
+                    resetQuestionState('Pro předmět ' + SUBJECT_LABEL[selected] + ' zatím nejsou vložené otázky.');
+                    return;
                 }
-                renderChecklist();
+
+                currentMockQuestion = subject.questions[Math.floor(Math.random() * subject.questions.length)];
+                currentRenderedQuiz = pickQuestionsByLimit(currentMockQuestion, QUESTIONS_PER_DRAW);
+
+                mockQuestionEl.textContent = currentMockQuestion.title;
+                renderQuizSection(mockMainQuizEl, currentRenderedQuiz.mainQuiz, 'main');
+                renderQuizSection(mockImpactQuizEl, currentRenderedQuiz.impactQuiz, 'impact');
+                mockTableTaskEl.style.display = currentMockQuestion.title === 'Kategorie JPO' ? 'block' : 'none';
+                mockPlaceholderEl.style.display = 'none';
+                mockContentEl.style.display = 'block';
+                mockResultEl.textContent = 'Vyplň všechny zobrazené otázky a klikni na Vyhodnotit odpovědi.';
             });
 
-            document.getElementById('mock-start').addEventListener('click', function () {
+            document.getElementById('mock-evaluate').addEventListener('click', function () {
                 if (!currentMockQuestion) return;
-                if (mockInterval) return;
 
-                mockInterval = setInterval(function () {
-                    if (mockRemaining <= 0) {
-                        clearInterval(mockInterval);
-                        mockInterval = null;
-                        return;
-                    }
-                    mockRemaining -= 1;
-                    mockTimerEl.textContent = formatTime(mockRemaining);
-                }, 1000);
-            });
+                const mainQuiz = currentRenderedQuiz.mainQuiz || [];
+                const impactQuiz = currentRenderedQuiz.impactQuiz || [];
+                const total = mainQuiz.length + impactQuiz.length;
 
-            document.getElementById('mock-skip').addEventListener('click', function () {
-                if (mockInterval) {
-                    clearInterval(mockInterval);
-                    mockInterval = null;
+                if (!total) {
+                    mockResultEl.textContent = 'Pro vyhodnocení zatím nejsou k dispozici otázky.';
+                    return;
                 }
-                mockRemaining = 0;
-                mockTimerEl.textContent = formatTime(mockRemaining);
-            });
 
-            document.getElementById('mock-save').addEventListener('click', function () {
-                if (!currentMockQuestion) return;
-                const done = mockChecklistEl.querySelectorAll('input[type="checkbox"]:checked').length;
-                const spent = 8 * 60 - mockRemaining;
-                const mins = Math.floor(spent / 60);
-                const secs = spent % 60;
+                let unanswered = 0;
+                let correct = 0;
+                const rows = [];
+                let num = 1;
 
-                mockHistory.unshift({
-                    question: currentMockQuestion,
-                    done: done,
-                    time: String(mins) + 'm ' + String(secs).padStart(2, '0') + 's',
-                    date: new Date().toLocaleString('cs-CZ')
-                });
-                if (mockHistory.length > 30) {
-                    mockHistory.length = 30;
+                function evaluateSection(sectionKey, questions) {
+                    questions.forEach(function (item, idx) {
+                        const picked = document.querySelector('input[name="' + sectionKey + '-' + idx + '"]:checked');
+                        if (!picked) {
+                            unanswered += 1;
+                            return;
+                        }
+
+                        const pickedIndex = Number(picked.value);
+                        const isCorrect = pickedIndex === item.correct;
+                        if (isCorrect) correct += 1;
+
+                        rows.push({
+                            index: num,
+                            question: item.q,
+                            pickedText: item.options[pickedIndex] || '-',
+                            correctText: item.options[item.correct] || '-',
+                            ok: isCorrect
+                        });
+                        num += 1;
+                    });
                 }
-                renderMockHistory();
+
+                evaluateSection('main', mainQuiz);
+                evaluateSection('impact', impactQuiz);
+
+                if (unanswered > 0) {
+                    mockResultEl.textContent = 'Nejprve odpověz na všechny podotázky.';
+                    return;
+                }
+
+                mockResultEl.textContent = 'Výsledek: ' + correct + '/' + total + ' správně.';
+                modalSummaryEl.textContent = 'Výsledek: ' + correct + '/' + total + ' správně. V tabulce vidíš chyby i správné odpovědi.';
+                modalBodyEl.innerHTML = rows.map(function (row) {
+                    return '<tr>' +
+                        '<td>' + row.index + '</td>' +
+                        '<td>' + escapeHtml(row.question) + '</td>' +
+                        '<td>' + escapeHtml(row.pickedText) + '</td>' +
+                        '<td>' + escapeHtml(row.correctText) + '</td>' +
+                        '<td class="' + (row.ok ? 'ok' : 'bad') + '">' + (row.ok ? 'Správně' : 'Chyba') + '</td>' +
+                        '</tr>';
+                }).join('');
+                openResultModal();
             });
 
-            renderChecklist();
-            renderMockHistory();
+            modalCloseEl.addEventListener('click', closeResultModal);
+            modalEl.addEventListener('click', function (event) {
+                if (event.target === modalEl) closeResultModal();
+            });
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape' && modalEl.classList.contains('open')) closeResultModal();
+            });
+
+            mockSubjectEl.addEventListener('change', updateSubjectStatus);
+            updateSubjectStatus();
         })();
     </script>
 
