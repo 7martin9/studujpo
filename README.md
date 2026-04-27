@@ -51,5 +51,4 @@ Projekt vznikl jako iniciativa studentů s cílem vytvořit přehledné a modern
 Upozornění:
 Tento web není oficiální stránkou OSŠP Kolín a slouží výhradně ke studijním účelům.
 
-Autoři:
-MV a AB
+Vytvořil: Martin Vilimovský | Spolupráce na materiálech: Adéla Bělková
