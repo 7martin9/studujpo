@@ -431,6 +431,8 @@ button:hover {
 .footer-socials a:hover { background: var(--primary); border-color: var(--primary); transform: translateY(-2px); }
 .footer-bottom { display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.82rem; color: #94a3b8; }
 .footer-credit { font-weight: 700; color: #cbd5e1; }
+.footer-credit-desktop { display: inline; }
+.footer-credit-mobile { display: none; }
 .footer-link {
     color: #cbd5e1;
     text-decoration: none;
@@ -487,6 +489,14 @@ button:hover {
     .footer-bottom {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .footer-credit-desktop {
+        display: none;
+    }
+
+    .footer-credit-mobile {
+        display: inline;
     }
 
     .footer-social-block {

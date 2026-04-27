@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://studyhub.codes/sitemap.xml
+Sitemap: https://studujpo.codes/sitemap.xml
+
